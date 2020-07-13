@@ -147,7 +147,7 @@ public class test {
 //           else System.out.println("false");
             
             
-//       Member mb=MemberDao.findInforMember(35);
+
 //        Iterator<Hoinghi> hoinghis=mb.getHoinghis().iterator();
 //        List<String> list=new ArrayList<>();
 //        while(hoinghis.hasNext()){
@@ -155,22 +155,24 @@ public class test {
 //            
 //            list.add(temp.getTen());
 //            
-           
+//           
 //        }
-//        for(int i=0;i<list.size();i++)
-//        {
-//            if(list.get(i).compareTo(list.get(i+1))>0)
-//            {
-//                String temp;
-//                temp=list.get(i);
-//                list.get(i).
-//                
-//            }
-//        
-//        }
+//         Collections.sort(list);
 //         System.out.println(list);
+                Member mb=MemberDao.findInforMember(35);
+                Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
+                List<Hoinghi> kq=new ArrayList<>();
+                while (hoinghis.hasNext()) {
+                    kq.add(hoinghis.next());
+                        
+            
+        }
+               
+            
+        }
     }
-}
+    
+
     
     
     

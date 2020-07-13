@@ -80,4 +80,16 @@ public class HoiNghiDAO {
         }
         return kq;
     }
+           public static Hoinghi findHoinghi(String tenHoiNghi){
+            Hoinghi hn=null;
+            Session session=HibernateUtil.getSessionFactory().openSession();
+            try {
+            hn=(Hoinghi) session.get(Hoinghi.class,tenHoiNghi);
+        } catch (HibernateException e) {
+                System.err.println(e);
+        }finally{
+                session.close();
+            }
+            return hn;
+    }
 }

@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -373,7 +374,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_ConferenceStatistics = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox_Sort = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel_ConManager = new javax.swing.JPanel();
@@ -745,8 +746,13 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             jTable_ConferenceStatistics.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by...", "Name", "Time", "Number of Attendees" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox_Sort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by...", "Name", "Time", "Number of Attendees" }));
+        jComboBox_Sort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox_Sort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_SortActionPerformed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
         jTextField1.setText("Search...");
@@ -768,7 +774,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBox_Sort, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -780,7 +786,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBox_Sort, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1587,6 +1593,71 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_Signin1ActionPerformed
 
+    private void jComboBox_SortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_SortActionPerformed
+        int index=jComboBox_Sort.getSelectedIndex();
+               if(index>0)
+                {
+            switch (index){
+                    case 1:
+                         {
+                            Member mb=MemberDao.findInforMember(keyMember);
+                            Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
+                            List<Hoinghi> kq=copyIterator(hoinghis);
+                            
+                           
+                            while (hoinghis.hasNext()) {
+                              kq.add(hoinghis.next());
+                                
+                                    // Hoinghi temp=hoinghis.next();
+                                   
+                                 //System.out.println("kq"+temp.getTen());
+                                        }
+                      
+                             System.out.println("--");
+                                for(int i=0;i<kq.size();i++)
+                            {
+                                
+                                Hoinghi temp=kq.get(index);
+                                System.out.println("kq:"+temp.getTen());
+                            }
+//                                System.out.println("---");
+//                            Comparator<Hoinghi> comparator=new Comparator<Hoinghi>() {
+//                                @Override
+//                                public int compare(Hoinghi o1, Hoinghi o2) {
+//                                    String name1=o1.getTen();
+//                                    String name2=o2.getTen();
+//                                    return name1.compareTo(name2);
+//                                }
+//                            };
+//                              Collections.sort(kq,comparator);
+//                                for(int i=0;i<kq.size();i++)
+//                            {
+//                                
+//                                Hoinghi temp=kq.get(index);
+//                                System.out.println("kq:"+temp.getTen());
+//                            }
+//                              DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
+//                              tbStatistics.setRowCount(0);
+//                            for(int i=0;i<kq.size();i++)
+//                            {
+//                                Hoinghi temp=kq.get(index);
+//                                List<String> list=new ArrayList<>();
+//                                list.add(temp.getTen());
+//                                list.add(temp.getMoTaNgangon());
+//                                list.add(String.valueOf(temp.getThoiGian()));
+//                                Diadiemtochuc dd=temp.getDiadiemtochuc();
+//                                list.add(String.valueOf(dd.getDiaChi()));
+//                                list.add(String.valueOf(temp.getSoNguoiThamDu()));
+//                                tbStatistics.addRow(list.toArray());
+//                            }
+                              break;
+                        }
+        //    }
+      //  }
+            }
+                }
+    }//GEN-LAST:event_jComboBox_SortActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1636,7 +1707,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Signin;
     private javax.swing.JButton jButton_Signin1;
     private javax.swing.JButton jButton_Signup;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox_Sort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
