@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 11, 2020, 1:27:37 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="POJOs.Hoinghi" table="hoinghi" catalog="db_quanlyhoinghi" optimistic-lock="version">
+        <id name="idHoiNghi" type="java.lang.Integer">
+            <column name="idHoiNghi" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="diadiemtochuc" class="POJOs.Diadiemtochuc" lazy="false" fetch="select">
+            <column name="DiaDiem" not-null="true" />
+        </many-to-one>
+        <property name="ten" type="string">
+            <column name="Ten" length="45" not-null="true" />
+        </property>
+        <property name="moTaNgangon" type="string">
+            <column name="MoTaNgangon" length="100" not-null="true" />
+        </property>
+        <property name="moTaChitiet" type="string">
+            <column name="MoTaChitiet" length="500" not-null="true" />
+        </property>
+        <property name="hinhAnh" type="string">
+            <column name="HinhAnh" length="100" not-null="true" />
+        </property>
+        <property name="thoiGian" type="timestamp">
+            <column name="ThoiGian" length="19" not-null="true" />
+        </property>
+        <property name="soNguoiThamDu" type="int">
+            <column name="SoNguoiThamDu" not-null="true" />
+        </property>
+        <set name="members" table="member_list" inverse="false" lazy="false" fetch="select">
+            <key>
+                <column name="idHoinghi" not-null="true" />
+            </key>
+            <many-to-many entity-name="POJOs.Member">
+                <column name="idMember" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
