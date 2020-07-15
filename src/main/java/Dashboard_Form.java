@@ -3,6 +3,7 @@
 
 import DAO.*;
 import POJOs.*;
+import jPanel.jPanelConference;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -16,14 +17,18 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.StreamSupport;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 
 
 /*
@@ -117,7 +122,15 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         //showProfile();
        
     }
+    public void showListConference(){
+       JPanel a=new jPanelConference();
+       
+        jPanel_ListCon.add(a);
+        jPanel_ListCon.add(a);
+        jPanel_ListCon.add(a);
+    }
     public void showProfile(){
+        
         
       
         Member mb=MemberDao.findInforMember(keyMember);
@@ -130,23 +143,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 jPasswordField_Profile.setText(mb.getPassword());
                 }
     }
-    public void showListConference()
-    {
-        DefaultTableModel tb = (DefaultTableModel) jTable1.getModel();
-        
-        List<Hoinghi> hn = HoiNghiDAO.findAll();
-        
-        for (int i = 0; i < hn.size(); i++) {
-            Hoinghi temp = hn.get(i);
-            List<String> list=new ArrayList<>();
-            list.add(temp.getTen());
-            list.add(temp.getMoTaNgangon()); 
-            list.add(String.valueOf(temp.getSoNguoiThamDu()));
-            list.add(String.valueOf(temp.getThoiGian()));
-            tb.addRow(list.toArray());
-            
-        }
-    }
+   
     public void showListConferenceStatistics()
     {
         DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
@@ -257,6 +254,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                     setVaitro(-1);
                                     showMenu();
                                     showPanel(jPanel_Home);
+                                    DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
+                                    tbStatistics.setRowCount(0);
                                    break;
                                    
                         }
@@ -365,12 +364,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel_ListConference = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel_ListCon = new javax.swing.JPanel();
         jPanel_Statistics = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_ConferenceStatistics = new javax.swing.JTable();
@@ -648,69 +644,28 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_ListConference.setMinimumSize(new java.awt.Dimension(922, 488));
         jPanel_ListConference.setPreferredSize(new java.awt.Dimension(922, 488));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jScrollPane3.setMaximumSize(new java.awt.Dimension(922, 488));
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(922, 488));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(922, 488));
 
-            },
-            new String [] {
-                "Tên", "Mô Tả Ngắn", "Số người tham dự", "Thời gian"
-            }
-        ));
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setViewportView(jTable1);
-
-        jLabel5.setBackground(new java.awt.Color(255, 204, 204));
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Conference List");
-        jLabel5.setToolTipText("Conference List");
-        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel_ListCon.setLayout(new java.awt.GridLayout(0, 1));
+        jScrollPane3.setViewportView(jPanel_ListCon);
 
         javax.swing.GroupLayout jPanel_ListConferenceLayout = new javax.swing.GroupLayout(jPanel_ListConference);
         jPanel_ListConference.setLayout(jPanel_ListConferenceLayout);
         jPanel_ListConferenceLayout.setHorizontalGroup(
             jPanel_ListConferenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_ListConferenceLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel_ListConferenceLayout.setVerticalGroup(
             jPanel_ListConferenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_ListConferenceLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel_Statistics.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_Statistics.setMaximumSize(new java.awt.Dimension(922, 488));
         jPanel_Statistics.setMinimumSize(new java.awt.Dimension(922, 488));
         jPanel_Statistics.setPreferredSize(new java.awt.Dimension(922, 488));
-
-        jPanel6.setBackground(new java.awt.Color(248, 148, 6));
-        jPanel6.setMaximumSize(new java.awt.Dimension(922, 83));
-        jPanel6.setMinimumSize(new java.awt.Dimension(922, 83));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Conference Statistics");
-        jLabel1.setMaximumSize(new java.awt.Dimension(922, 83));
-        jLabel1.setMinimumSize(new java.awt.Dimension(922, 83));
-        jLabel1.setPreferredSize(new java.awt.Dimension(922, 83));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         jPanel12.setBackground(new java.awt.Color(44, 62, 60));
         jPanel12.setMaximumSize(new java.awt.Dimension(922, 397));
@@ -788,7 +743,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBox_Sort, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -796,15 +751,13 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_Statistics.setLayout(jPanel_StatisticsLayout);
         jPanel_StatisticsLayout.setHorizontalGroup(
             jPanel_StatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel_StatisticsLayout.createSequentialGroup()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_StatisticsLayout.setVerticalGroup(
             jPanel_StatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_StatisticsLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel_ConManager.setBackground(new java.awt.Color(255, 255, 255));
@@ -1592,7 +1545,102 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton_Signin1ActionPerformed
-
+    public void sortNameListConferenceMember(){
+        Member mb=MemberDao.findInforMember(keyMember);
+                            Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
+                            List<Hoinghi> kq=new ArrayList<>();
+                            while (hoinghis.hasNext()) {
+                            kq.add(hoinghis.next());
+                                        }
+                              Comparator<Hoinghi> comparator=new Comparator<Hoinghi>() {
+                                @Override
+                                public int compare(Hoinghi o1, Hoinghi o2) {
+                                    String name1=o1.getTen();
+                                    String name2=o2.getTen();
+                                    return name1.compareTo(name2);
+                                }
+                            };
+                              Collections.sort(kq,comparator);
+                              DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
+                              tbStatistics.setRowCount(0);
+                                for(int i=0;i<kq.size();i++)
+                                {
+                                Hoinghi temp=kq.get(i);
+                                List<String> list=new ArrayList<>();
+                                list.add(temp.getTen());
+                                list.add(temp.getMoTaNgangon());
+                                list.add(String.valueOf(temp.getThoiGian()));
+                                Diadiemtochuc dd=temp.getDiadiemtochuc();
+                                list.add(String.valueOf(dd.getDiaChi()));
+                                list.add(String.valueOf(temp.getSoNguoiThamDu()));
+                                tbStatistics.addRow(list.toArray());
+                             }
+    }
+        public void sortTimeListConferenceMember(){
+        Member mb=MemberDao.findInforMember(keyMember);
+                            Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
+                            List<Hoinghi> kq=new ArrayList<>();
+                            while (hoinghis.hasNext()) {
+                            kq.add(hoinghis.next());
+                                        }
+                              Comparator<Hoinghi> comparator=new Comparator<Hoinghi>() {
+                                @Override
+                                public int compare(Hoinghi o1, Hoinghi o2) {
+                                    Date date1=o1.getThoiGian();
+                                    Date date2=o2.getThoiGian();
+                                    return date1.compareTo(date2);
+                                    
+                                }
+                            };
+                              Collections.sort(kq,comparator);
+                              DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
+                              tbStatistics.setRowCount(0);
+                                for(int i=0;i<kq.size();i++)
+                                {
+                                Hoinghi temp=kq.get(i);
+                                List<String> list=new ArrayList<>();
+                                list.add(temp.getTen());
+                                list.add(temp.getMoTaNgangon());
+                                list.add(String.valueOf(temp.getThoiGian()));
+                                Diadiemtochuc dd=temp.getDiadiemtochuc();
+                                list.add(String.valueOf(dd.getDiaChi()));
+                                list.add(String.valueOf(temp.getSoNguoiThamDu()));
+                                tbStatistics.addRow(list.toArray());
+                             }
+    }
+     public void sortAttendeesListConferenceMember(){
+        Member mb=MemberDao.findInforMember(keyMember);
+                            Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
+                            List<Hoinghi> kq=new ArrayList<>();
+                            while (hoinghis.hasNext()) {
+                            kq.add(hoinghis.next());
+                                        }
+                              Comparator<Hoinghi> comparator=new Comparator<Hoinghi>() {
+                                @Override
+                                public int compare(Hoinghi o1, Hoinghi o2) {
+                                    int att1=o1.getSoNguoiThamDu();
+                                    int att2=o2.getSoNguoiThamDu();
+                                    if(att1>att2) return 1;
+                                    else if(att1<att2)return -1;
+                                    else return 0;
+                                }
+                            };
+                              Collections.sort(kq,comparator);                                    
+                              DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
+                              tbStatistics.setRowCount(0);
+                                for(int i=0;i<kq.size();i++)
+                                {
+                                Hoinghi temp=kq.get(i);
+                                List<String> list=new ArrayList<>();
+                                list.add(temp.getTen());
+                                list.add(temp.getMoTaNgangon());
+                                list.add(String.valueOf(temp.getThoiGian()));
+                                Diadiemtochuc dd=temp.getDiadiemtochuc();
+                                list.add(String.valueOf(dd.getDiaChi()));
+                                list.add(String.valueOf(temp.getSoNguoiThamDu()));
+                                tbStatistics.addRow(list.toArray());
+                             }
+    }
     private void jComboBox_SortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_SortActionPerformed
         int index=jComboBox_Sort.getSelectedIndex();
                if(index>0)
@@ -1600,61 +1648,20 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             switch (index){
                     case 1:
                          {
-                            Member mb=MemberDao.findInforMember(keyMember);
-                            Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
-                            List<Hoinghi> kq=copyIterator(hoinghis);
-                            
-                           
-                            while (hoinghis.hasNext()) {
-                              kq.add(hoinghis.next());
-                                
-                                    // Hoinghi temp=hoinghis.next();
-                                   
-                                 //System.out.println("kq"+temp.getTen());
-                                        }
-                      
-                             System.out.println("--");
-                                for(int i=0;i<kq.size();i++)
-                            {
-                                
-                                Hoinghi temp=kq.get(index);
-                                System.out.println("kq:"+temp.getTen());
-                            }
-//                                System.out.println("---");
-//                            Comparator<Hoinghi> comparator=new Comparator<Hoinghi>() {
-//                                @Override
-//                                public int compare(Hoinghi o1, Hoinghi o2) {
-//                                    String name1=o1.getTen();
-//                                    String name2=o2.getTen();
-//                                    return name1.compareTo(name2);
-//                                }
-//                            };
-//                              Collections.sort(kq,comparator);
-//                                for(int i=0;i<kq.size();i++)
-//                            {
-//                                
-//                                Hoinghi temp=kq.get(index);
-//                                System.out.println("kq:"+temp.getTen());
-//                            }
-//                              DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
-//                              tbStatistics.setRowCount(0);
-//                            for(int i=0;i<kq.size();i++)
-//                            {
-//                                Hoinghi temp=kq.get(index);
-//                                List<String> list=new ArrayList<>();
-//                                list.add(temp.getTen());
-//                                list.add(temp.getMoTaNgangon());
-//                                list.add(String.valueOf(temp.getThoiGian()));
-//                                Diadiemtochuc dd=temp.getDiadiemtochuc();
-//                                list.add(String.valueOf(dd.getDiaChi()));
-//                                list.add(String.valueOf(temp.getSoNguoiThamDu()));
-//                                tbStatistics.addRow(list.toArray());
-//                            }
+                            sortNameListConferenceMember();
                               break;
                         }
-        //    }
-      //  }
-            }
+                    case 2:
+                    {
+                        sortTimeListConferenceMember();
+                        break;
+                    }
+                    case 3:
+                    {
+                        sortAttendeesListConferenceMember();
+                        break;
+                    }
+                   }
                 }
     }//GEN-LAST:event_jComboBox_SortActionPerformed
 
@@ -1708,7 +1715,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Signin1;
     private javax.swing.JButton jButton_Signup;
     private javax.swing.JComboBox<String> jComboBox_Sort;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1724,7 +1730,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1750,12 +1755,12 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanel_ConManager;
     private javax.swing.JPanel jPanel_Home;
+    private javax.swing.JPanel jPanel_ListCon;
     private javax.swing.JPanel jPanel_ListConference;
     private javax.swing.JPanel jPanel_Profile;
     private javax.swing.JPanel jPanel_SignIn;
@@ -1769,9 +1774,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField_Signin;
     private javax.swing.JPasswordField jPassword_RetypeSignup;
     private javax.swing.JPasswordField jPassword_SignUp;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable_ConferenceStatistics;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField_EmailProfile;

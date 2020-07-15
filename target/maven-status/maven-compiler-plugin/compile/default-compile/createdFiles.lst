@@ -2,7 +2,9 @@ DAO\DiaDiemToChucDAO.class
 POJOs\Hoinghi.class
 DAO\HoiNghiDAO.class
 Dashboard_Form$10.class
+Dashboard_Form$20.class
 Dashboard_Form$5.class
+jPanel\jPanelConference.class
 Dashboard_Form$12.class
 Dashboard_Form$3.class
 DAO\MemberDao.class
@@ -12,7 +14,9 @@ Dashboard_Form$8.class
 Dashboard_Form$19.class
 Dashboard_Form$14.class
 Dashboard_Form$7.class
+Test\test$1.class
 Dashboard_Form$2.class
+Dashboard_Form$21.class
 Dashboard_Form$11.class
 Dashboard_Form$4.class
 Dashboard_Form$9.class
@@ -23,6 +27,7 @@ POJOs\Member.class
 Dashboard_Form$1.class
 Dashboard_Form$13.class
 Dashboard_Form.class
+Dashboard_Form$22.class
 Test\test.class
 Dashboard_Form$6.class
 Dashboard_Form$15.class
