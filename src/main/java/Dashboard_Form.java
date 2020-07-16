@@ -28,7 +28,7 @@ import java.util.stream.StreamSupport;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
+import jPanel.jPanelConference;
 
 
 /*
@@ -59,7 +59,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     // create an array of jpanels
     JPanel[] panels = new JPanel[8];
     private int vaitro=-1;
-    private int keyMember=-1;
+    public int keyMember=-1;
 
     public int getKeyMember() {
         return keyMember;
@@ -123,11 +123,18 @@ public final class Dashboard_Form extends javax.swing.JFrame {
        
     }
     public void showListConference(){
-       JPanel a=new jPanelConference();
+             
+//       
+//       jPanel_ListCon.add(a);
+       List<Hoinghi> hoinghis=HoiNghiDAO.findAll();
+       for(int i=0;i<hoinghis.size();i++)
+       {
+           Hoinghi hn=hoinghis.get(i);
+           JPanel a=new jPanelConference(hn.getIdHoiNghi());
+           jPanel_ListCon.add(a);
+           
+       }
        
-        jPanel_ListCon.add(a);
-        jPanel_ListCon.add(a);
-        jPanel_ListCon.add(a);
     }
     public void showProfile(){
         
@@ -366,6 +373,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_ListConference = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel_ListCon = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jPanel_Statistics = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -644,22 +654,65 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_ListConference.setMinimumSize(new java.awt.Dimension(922, 488));
         jPanel_ListConference.setPreferredSize(new java.awt.Dimension(922, 488));
 
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setHorizontalScrollBar(null);
         jScrollPane3.setMaximumSize(new java.awt.Dimension(922, 488));
         jScrollPane3.setMinimumSize(new java.awt.Dimension(922, 488));
         jScrollPane3.setPreferredSize(new java.awt.Dimension(922, 488));
 
-        jPanel_ListCon.setLayout(new java.awt.GridLayout(0, 1));
+        jPanel_ListCon.setBackground(new java.awt.Color(248, 148, 6));
+        jPanel_ListCon.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
         jScrollPane3.setViewportView(jPanel_ListCon);
+
+        jPanel6.setMaximumSize(new java.awt.Dimension(922, 32));
+        jPanel6.setMinimumSize(new java.awt.Dimension(922, 32));
+        jPanel6.setPreferredSize(new java.awt.Dimension(922, 32));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setMaximumSize(new java.awt.Dimension(92, 32));
+        jComboBox1.setMinimumSize(new java.awt.Dimension(92, 32));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(92, 32));
+
+        jLabel1.setText("jLabel1");
+        jLabel1.setMaximumSize(new java.awt.Dimension(32, 32));
+        jLabel1.setMinimumSize(new java.awt.Dimension(32, 32));
+        jLabel1.setPreferredSize(new java.awt.Dimension(32, 32));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(751, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel_ListConferenceLayout = new javax.swing.GroupLayout(jPanel_ListConference);
         jPanel_ListConference.setLayout(jPanel_ListConferenceLayout);
         jPanel_ListConferenceLayout.setHorizontalGroup(
             jPanel_ListConferenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel_ListConferenceLayout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel_ListConferenceLayout.setVerticalGroup(
             jPanel_ListConferenceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_ListConferenceLayout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 456, Short.MAX_VALUE))
         );
 
         jPanel_Statistics.setBackground(new java.awt.Color(255, 255, 255));
@@ -703,6 +756,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
         jComboBox_Sort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by...", "Name", "Time", "Number of Attendees" }));
         jComboBox_Sort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jComboBox_Sort.setMaximumSize(new java.awt.Dimension(92, 32));
+        jComboBox_Sort.setMinimumSize(new java.awt.Dimension(92, 32));
+        jComboBox_Sort.setPreferredSize(new java.awt.Dimension(92, 32));
         jComboBox_Sort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_SortActionPerformed(evt);
@@ -1714,7 +1770,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Signin;
     private javax.swing.JButton jButton_Signin1;
     private javax.swing.JButton jButton_Signup;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox_Sort;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1755,6 +1813,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;

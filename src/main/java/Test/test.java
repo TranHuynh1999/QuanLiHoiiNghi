@@ -29,6 +29,8 @@ public class test {
     return copy;
 }
     public static void main(String[] args) throws NoSuchAlgorithmException {
+       Hoinghi hn=HoiNghiDAO.findInforHoinghi(1);
+        System.out.println("a"+hn.getDiadiemtochuc().getDiaChi());
        
         //List<Hoinghi> hn = HoiNghiDAO.findAll();
         
@@ -165,32 +167,32 @@ public class test {
 //        }
 //         Collections.sort(list);
 //         System.out.println(list);
-            
-                            Member mb=MemberDao.findInforMember(35);
-                            Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
-                            List<Hoinghi> kq=new ArrayList<>();
-                            while (hoinghis.hasNext()) {
-                            kq.add(hoinghis.next());
-                                        }
-                            for (int i = 0;i<kq.size(); i++) {
-                                    Hoinghi hn=kq.get(i);
-                                     System.out.println(" "+hn.getTen());
-                                }
-                            Comparator<Hoinghi> comparator=new Comparator<Hoinghi>() {
-                                @Override
-                                public int compare(Hoinghi o1, Hoinghi o2) {
-                                    String name1=o1.getTen();
-                                    String name2=o2.getTen();
-                                    return name1.compareTo(name2);
-                                }
-                            };
-                              Collections.sort(kq,comparator);
-                                for(int i=0;i<kq.size();i++)
-                            {
-                                
-                                Hoinghi temp=kq.get(i);
-                                System.out.println("kq:"+temp.getTen());
-                            }
+//            
+//                            Member mb=MemberDao.findInforMember(35);
+//                            Iterator<Hoinghi> hoinghis= mb.getHoinghis().iterator(); 
+//                            List<Hoinghi> kq=new ArrayList<>();
+//                            while (hoinghis.hasNext()) {
+//                            kq.add(hoinghis.next());
+//                                        }
+//                            for (int i = 0;i<kq.size(); i++) {
+//                                    Hoinghi hn=kq.get(i);
+//                                     System.out.println(" "+hn.getTen());
+//                                }
+//                            Comparator<Hoinghi> comparator=new Comparator<Hoinghi>() {
+//                                @Override
+//                                public int compare(Hoinghi o1, Hoinghi o2) {
+//                                    String name1=o1.getTen();
+//                                    String name2=o2.getTen();
+//                                    return name1.compareTo(name2);
+//                                }
+//                            };
+//                              Collections.sort(kq,comparator);
+//                                for(int i=0;i<kq.size();i++)
+//                            {
+//                                
+//                                Hoinghi temp=kq.get(i);
+//                                System.out.println("kq:"+temp.getTen());
+//                            }
                
             
         }
