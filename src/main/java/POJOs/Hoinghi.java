@@ -1,5 +1,5 @@
 package POJOs;
-// Generated Jul 11, 2020, 1:27:36 PM by Hibernate Tools 4.3.1
+// Generated Jul 16, 2020, 6:37:08 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -20,7 +20,7 @@ public class Hoinghi  implements java.io.Serializable {
      private String hinhAnh;
      private Date thoiGian;
      private int soNguoiThamDu;
-     private Set members = new HashSet(0);
+     private Set memberLists = new HashSet(0);
 
     public Hoinghi() {
     }
@@ -35,7 +35,7 @@ public class Hoinghi  implements java.io.Serializable {
         this.thoiGian = thoiGian;
         this.soNguoiThamDu = soNguoiThamDu;
     }
-    public Hoinghi(Diadiemtochuc diadiemtochuc, String ten, String moTaNgangon, String moTaChitiet, String hinhAnh, Date thoiGian, int soNguoiThamDu, Set members) {
+    public Hoinghi(Diadiemtochuc diadiemtochuc, String ten, String moTaNgangon, String moTaChitiet, String hinhAnh, Date thoiGian, int soNguoiThamDu, Set memberLists) {
        this.diadiemtochuc = diadiemtochuc;
        this.ten = ten;
        this.moTaNgangon = moTaNgangon;
@@ -43,7 +43,7 @@ public class Hoinghi  implements java.io.Serializable {
        this.hinhAnh = hinhAnh;
        this.thoiGian = thoiGian;
        this.soNguoiThamDu = soNguoiThamDu;
-       this.members = members;
+       this.memberLists = memberLists;
     }
    
     public Integer getIdHoiNghi() {
@@ -102,12 +102,12 @@ public class Hoinghi  implements java.io.Serializable {
     public void setSoNguoiThamDu(int soNguoiThamDu) {
         this.soNguoiThamDu = soNguoiThamDu;
     }
-    public Set getMembers() {
-        return this.members;
+    public Set getMemberLists() {
+        return this.memberLists;
     }
     
-    public void setMembers(Set members) {
-        this.members = members;
+    public void setMemberLists(Set memberLists) {
+        this.memberLists = memberLists;
     }
 
 

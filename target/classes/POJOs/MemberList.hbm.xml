@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 16, 2020, 6:37:10 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="POJOs.MemberList" table="member_list" catalog="db_quanlyhoinghi" optimistic-lock="version">
+        <composite-id name="id" class="POJOs.MemberListId">
+            <key-property name="idHoinghi" type="int">
+                <column name="idHoinghi" />
+            </key-property>
+            <key-property name="idMember" type="int">
+                <column name="idMember" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="hoinghi" class="POJOs.Hoinghi" update="false" insert="false" fetch="select" lazy="false" >
+            <column name="idHoinghi" not-null="true" />
+        </many-to-one>
+        <many-to-one name="member" class="POJOs.Member"  update="false" insert="false" fetch="select" lazy="false">
+            <column name="idMember" not-null="true" />
+        </many-to-one>
+        <property  name="confirm" type="int">
+            <column name="confirm" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

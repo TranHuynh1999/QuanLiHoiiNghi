@@ -76,21 +76,26 @@ public class MemberDao {
         }
         return sb.toString();
     }
-    public static boolean checkSignin(String User,String Password) throws NoSuchAlgorithmException 
+    public static int checkSignin(String User,String Password) throws NoSuchAlgorithmException 
     {
 
       List<Member> listmb=MemberDao.findAll();
               for (int i = 0; i<listmb.size(); i++) {
                   Member temp=listmb.get(i);
-                  if(temp.getUserName().equals(User) &&(temp.getPassword().equals(hashPassword(Password))))
+                  if(temp.getUserName().equals(User) &&(temp.getPassword().equals(hashPassword(Password)))&&temp.getActive()==1)
                   {
                       
-                      return true;
+                      return 1;//dang nhap thanh cong
                              
                   }
+                  else if(temp.getUserName().equals(User) &&(temp.getPassword().equals(hashPassword(Password)))&&temp.getActive()==0)
+                  {
+                      return 0;//tai khoan bi khoa
+                  }
+                  
         }
-             
-         return false;   
+            return 2; //dang nhap khong thanh  cong
+        
     }
     public static int findVaitro(String Username)
     {

@@ -1,5 +1,5 @@
 package POJOs;
-// Generated Jul 11, 2020, 1:27:36 PM by Hibernate Tools 4.3.1
+// Generated Jul 16, 2020, 6:37:08 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,26 +17,29 @@ public class Member  implements java.io.Serializable {
      private String password;
      private String email;
      private int vaiTro;
-     private Set hoinghis = new HashSet(0);
+     private int active;
+     private Set memberLists = new HashSet(0);
 
     public Member() {
     }
 
 	
-    public Member(String ten, String userName, String password, String email, int vaiTro) {
+    public Member(String ten, String userName, String password, String email, int vaiTro, int active) {
         this.ten = ten;
         this.userName = userName;
         this.password = password;
         this.email = email;
         this.vaiTro = vaiTro;
+        this.active = active;
     }
-    public Member(String ten, String userName, String password, String email, int vaiTro, Set hoinghis) {
+    public Member(String ten, String userName, String password, String email, int vaiTro, int active, Set memberLists) {
        this.ten = ten;
        this.userName = userName;
        this.password = password;
        this.email = email;
        this.vaiTro = vaiTro;
-       this.hoinghis = hoinghis;
+       this.active = active;
+       this.memberLists = memberLists;
     }
    
     public Integer getIdMember() {
@@ -81,12 +84,19 @@ public class Member  implements java.io.Serializable {
     public void setVaiTro(int vaiTro) {
         this.vaiTro = vaiTro;
     }
-    public Set getHoinghis() {
-        return this.hoinghis;
+    public int getActive() {
+        return this.active;
     }
     
-    public void setHoinghis(Set hoinghis) {
-        this.hoinghis = hoinghis;
+    public void setActive(int active) {
+        this.active = active;
+    }
+    public Set getMemberLists() {
+        return this.memberLists;
+    }
+    
+    public void setMemberLists(Set memberLists) {
+        this.memberLists = memberLists;
     }
 
 

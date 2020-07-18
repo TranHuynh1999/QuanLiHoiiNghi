@@ -48,5 +48,6 @@ Contributor(s):
     <mapping resource="POJOs/Member.hbm.xml"/>
     <mapping resource="POJOs/Diadiemtochuc.hbm.xml"/>
     <mapping resource="POJOs/Hoinghi.hbm.xml"/>
+    <mapping resource="POJOs/MemberList.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
