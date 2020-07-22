@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import static org.hibernate.criterion.Projections.id;
 
 
 /**
@@ -22,16 +23,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Tran Huynh
  */
 public class test {
-    public static <T> List<T> copyIterator(Iterator<T> iter) {
-    List<T> copy = new ArrayList<T>();
-    while (iter.hasNext())
-        copy.add(iter.next());
-    return copy;
-}
+//    public static <T> List<T> copyIterator(Iterator<T> iter) {
+//    List<T> copy = new ArrayList<T>();
+//    while (iter.hasNext())
+//        copy.add(iter.next());
+//    return copy;
+//}
     public static void main(String[] args) throws NoSuchAlgorithmException {
-       Hoinghi hn=HoiNghiDAO.findInforHoinghi(1);
-        System.out.println("a"+hn.getDiadiemtochuc().getDiaChi());
-       
+//       Hoinghi hn=HoiNghiDAO.findInforHoinghi(1);
+//        System.out.println("a"+hn.getDiadiemtochuc().getDiaChi());
+//       
         //List<Hoinghi> hn = HoiNghiDAO.findAll();
         
 //        for (int i = 0; i < hn.size(); i++) {
@@ -193,10 +194,30 @@ public class test {
 //                                Hoinghi temp=kq.get(i);
 //                                System.out.println("kq:"+temp.getTen());
 //                            }
-               
+              
+//              List<MemberList> mbl=MemberListsDAO.findAll();
+//              for (int i = 0; i < mbl.size(); i++) {
+//                  MemberList temp=mbl.get(i);
+//                  System.out.println("idmember"+temp.getMember().getIdMember());
+//                  System.out.println("idhoinghi"+temp.getHoinghi().getIdHoiNghi());
+//                  System.out.println("active"+temp.getConfirm());
+//                  System.out.println("id"+temp.getId());
+//              }
+//            MemberList ml1=new MemberList();
+//            Hoinghi hn=HoiNghiDAO.findInforHoinghi(1);
+//            ml1.setHoinghi(hn);
+//            Member mb=MemberDao.findInforMember(36);
+//            ml1.setMember(mb);
+//            ml1.setConfirm(1);
+//            System.out.println(MemberListId.class.getClass());
+//            MemberListId idmbl=new MemberListId(1, 31);
+//            ml1.setId(idmbl);
+            MemberList temp=MemberListsDAO.findMemberListtoID(35, 1);
+            System.out.println("tm"+temp.getConfirm());
+        }
             
         }
-    }
+    
     
 
     

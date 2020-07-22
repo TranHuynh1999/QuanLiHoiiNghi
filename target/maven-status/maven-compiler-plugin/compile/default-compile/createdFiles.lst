@@ -10,6 +10,7 @@ Dashboard_Form$8.class
 Dashboard_Form$14.class
 Dashboard_Form$24.class
 Dashboard_Form$2.class
+DAO\MemberListsDAO.class
 Dashboard_Form$4.class
 Dashboard_Form$16.class
 POJOs\Diadiemtochuc.class
@@ -18,6 +19,7 @@ POJOs\MemberList.class
 Dashboard_Form$1.class
 Dashboard_Form$13.class
 Dashboard_Form$22.class
+Dashboard_Form$28.class
 BUS\HoiNghiBus$1.class
 Dashboard_Form$25.class
 DAO\DiaDiemToChucDAO.class
