@@ -8,9 +8,11 @@ package Test;
 import DAO.*;
 import POJOs.*;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -212,8 +214,16 @@ public class test {
 //            System.out.println(MemberListId.class.getClass());
 //            MemberListId idmbl=new MemberListId(1, 31);
 //            ml1.setId(idmbl);
-            MemberList temp=MemberListsDAO.findMemberListtoID(35, 1);
-            System.out.println("tm"+temp.getConfirm());
+//            MemberList temp=MemberListsDAO.findMemberListtoID(35, 1);
+//            System.out.println("tm"+temp.getConfirm());
+                Hoinghi hn=HoiNghiDAO.findInforHoinghi(2);
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+                     Date date = new Date();  
+                    
+                    //Date d=formatter.format(date) ;
+                    // DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+                    // String strDate = dateFormat.format(hn.getThoiGian());  
+                       System.out.println( date.compareTo(hn.getThoiGian()));
         }
             
         }

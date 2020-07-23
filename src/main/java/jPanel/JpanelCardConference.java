@@ -24,9 +24,7 @@ public class JpanelCardConference extends javax.swing.JPanel {
         
         Hoinghi hn=HoiNghiDAO.findInforHoinghi(i);
         jLabel_Ten.setText(hn.getTen());
-        
-
-       ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource(hn.getHinhAnh())).getImage().getScaledInstance(305, 105, Image.SCALE_SMOOTH));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource(hn.getHinhAnh())).getImage().getScaledInstance(305, 105, Image.SCALE_SMOOTH));
         jLabel_HinhAnh.setIcon(imageIcon);
         jPanel1.setVisible(true);
     

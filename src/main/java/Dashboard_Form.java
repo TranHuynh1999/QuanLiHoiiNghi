@@ -34,6 +34,8 @@ import jPanel.jPanelConference;
 import java.awt.Image;
 import java.awt.Label;
 import java.awt.event.MouseAdapter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 
@@ -62,13 +64,30 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     
     // create an array of jlabels
     JLabel[] menuLabels = new JLabel[8];
+
+    public void setCountMember(int countMember) {
+        this.countMember = countMember;
+    }
+
+    public int getCountMember() {
+        return countMember;
+    }
     
     // create an array of jpanels
     JPanel[] panels = new JPanel[9];
-    private int vaitro=-1;
+    public int vaitro=-1;
     public int keyMember=-1;
     public int keyConference=-1;
+    public int countMember=0;
+    public int back=-1;
 
+    public void setBack(int back) {
+        this.back = back;
+    }
+
+    public int getBack() {
+        return back;
+    }
     public void setKeyConference(int keyConference) {
         this.keyConference = keyConference;
     }
@@ -158,10 +177,16 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                    jLabel_DetailMotangangon.setText(hn.getMoTaNgangon());
                    jLabel_DetailNumber.setText(String.valueOf(hn.getSoNguoiThamDu()));
                    jLabel_DetailPalace.setText(hn.getDiadiemtochuc().getTen());
-                   jLabel_DetailTime.setText(String.valueOf(hn.getThoiGian()));
+                   DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+                   String strDate = dateFormat.format(hn.getThoiGian());  
+                   jLabel_DetailTime.setText(strDate);
                    jTextPane_DetailMotachitiet.setText(hn.getMoTaChitiet());
                    ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource(hn.getHinhAnh())).getImage().getScaledInstance(661, 232, Image.SCALE_SMOOTH));
                    jLabel_DetailImage.setIcon(imageIcon);
+                   MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
+                   if(temp==null)
+                        jButton_signupConfer.setText("Đăng ký");
+                   else jButton_signupConfer.setText("Hủy đăng ký");
                    showMemberAttendConference(hn.getIdHoiNghi());
                    showPanel(jPanel_DetailConference);
                }
@@ -194,6 +219,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                    jTextPane_DetailMotachitiet.setText(hn.getMoTaChitiet());
                    ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource(hn.getHinhAnh())).getImage().getScaledInstance(661, 232, Image.SCALE_SMOOTH));
                    jLabel_DetailImage.setIcon(imageIcon);
+                   MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
+                   if(temp==null)
+                        jButton_signupConfer.setText("Đăng ký");
+                   else jButton_signupConfer.setText("Hủy đăng ký");
                    showMemberAttendConference(hn.getIdHoiNghi());
                    showPanel(jPanel_DetailConference);
                    
@@ -209,18 +238,21 @@ public final class Dashboard_Form extends javax.swing.JFrame {
            tableModel.setRowCount(0);
        Hoinghi hn=HoiNghiDAO.findInforHoinghi(idHn);
        Iterator<MemberList> memberLists= hn.getMemberLists().iterator();
+        setCountMember(0);
        while(memberLists.hasNext())
        {
            MemberList temp=memberLists.next();
            if(temp.getConfirm()==1)
            {
+           setCountMember(getCountMember()+1);
            Member mb=MemberDao.findInforMember(temp.getMember().getIdMember());
            List<String> list=new ArrayList<>();
            list.add(mb.getTen());
-           list.add(mb.getEmail());
+           list.add(mb.getEmail()); 
            tableModel.addRow(list.toArray());
            }
        }
+        jTextCountNumberDetail.setText(String.valueOf(getCountMember()));
        
     }
     public void showProfile(){
@@ -234,7 +266,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 jTextField_ProfileName.setText(mb.getTen());
                 jLabel_ProfileUsername.setText(mb.getUserName());
                 jTextField_EmailProfile.setText(mb.getEmail());
-                jLabel_ProfileName.setText("Hello "+mb.getTen()+"!");
+                jLabel_ProfileName.setText("Hi "+mb.getTen()+"!");
          }
     }
    
@@ -242,15 +274,18 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     {
         DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
         tbStatistics.setRowCount(0);
-        Member mb=MemberDao.findInforMember(keyMember);
+        Member mb=MemberDao.findInforMember(getKeyMember());
         Iterator<MemberList> memberlists=mb.getMemberLists().iterator();
         while(memberlists.hasNext()){
             MemberList temp=memberlists.next();
             Hoinghi hn=HoiNghiDAO.findInforHoinghi(temp.getHoinghi().getIdHoiNghi());
             List<String> list=new ArrayList<>();
+            list.add(String.valueOf(hn.getIdHoiNghi()));
             list.add(hn.getTen());
             list.add(hn.getMoTaNgangon());
-            list.add(String.valueOf(hn.getThoiGian()));
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+            String strDate = dateFormat.format(hn.getThoiGian());         
+            list.add(strDate);
             Diadiemtochuc dd=hn.getDiadiemtochuc();
             list.add(String.valueOf(dd.getDiaChi()));
             list.add(String.valueOf(hn.getSoNguoiThamDu()));
@@ -323,12 +358,13 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                    break;
                              case "List Conference":
                                    showPanel(jPanel_ListConference);
-                                   
+                                   setBack(1);
                                    break;
                                    
                             case "Conference statistics":
                                    showPanel(jPanel_Statistics);
-                                     
+                                   setBack(2);
+                                   showListConferenceStatistics();
                                    // jPanel_products.setBackground(Color.BLUE);
                                    break;
                                    
@@ -481,7 +517,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jLabel_DetailTime = new javax.swing.JLabel();
         jLabel_DetailPalace = new javax.swing.JLabel();
         jLabel_DetailNumber = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton_signupConfer = new javax.swing.JButton();
+        jTextCountNumberDetail = new javax.swing.JTextField();
         jPanel_ListConference = new javax.swing.JPanel();
         jScrollPane_List = new javax.swing.JScrollPane();
         jPanel_ListCon = new javax.swing.JPanel();
@@ -772,7 +809,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Username"
+                "Name", "Email"
             }
         ));
         jScrollPane3.setViewportView(jTable_MemberAttendConfer);
@@ -840,13 +877,13 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jLabel_DetailNumber.setForeground(new java.awt.Color(228, 241, 254));
         jLabel_DetailNumber.setText("jLabel1");
 
-        jButton1.setBackground(new java.awt.Color(34, 167, 240));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(228, 241, 254));
-        jButton1.setText("Đăng ký");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_signupConfer.setBackground(new java.awt.Color(34, 167, 240));
+        jButton_signupConfer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton_signupConfer.setForeground(new java.awt.Color(228, 241, 254));
+        jButton_signupConfer.setText("Đăng ký");
+        jButton_signupConfer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_signupConferActionPerformed(evt);
             }
         });
 
@@ -857,6 +894,17 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jTextCountNumberDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton_signupConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(jLabel_DetailImage, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -879,17 +927,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel_DetailMotangangon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel_DetailMotangangon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -918,14 +959,16 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                         .addComponent(jLabel_DetailImage, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51))))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jTextCountNumberDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_signupConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout jPanel_DetailConferenceLayout = new javax.swing.GroupLayout(jPanel_DetailConference);
@@ -1035,11 +1078,11 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Brief Description", "Time", "Venue Location", "Number of Attendees", "Confirm"
+                "ID", "Name", "Brief Description", "Time", "Venue Location", "Number of Attendees", "Confirm"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1048,15 +1091,12 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         });
         jTable_ConferenceStatistics.setGridColor(new java.awt.Color(255, 51, 51));
         jTable_ConferenceStatistics.setSelectionBackground(new java.awt.Color(0, 0, 153));
+        jTable_ConferenceStatistics.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_ConferenceStatisticsMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable_ConferenceStatistics);
-        if (jTable_ConferenceStatistics.getColumnModel().getColumnCount() > 0) {
-            jTable_ConferenceStatistics.getColumnModel().getColumn(0).setResizable(false);
-            jTable_ConferenceStatistics.getColumnModel().getColumn(1).setResizable(false);
-            jTable_ConferenceStatistics.getColumnModel().getColumn(2).setResizable(false);
-            jTable_ConferenceStatistics.getColumnModel().getColumn(3).setResizable(false);
-            jTable_ConferenceStatistics.getColumnModel().getColumn(4).setResizable(false);
-            jTable_ConferenceStatistics.getColumnModel().getColumn(5).setResizable(false);
-        }
 
         jComboBox_Sort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by...", "Name", "Time", "Number of Attendees" }));
         jComboBox_Sort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1852,7 +1892,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
           showProfile();
           jTextField_Signin.setText(null);
           jPasswordField_Signin.setText(null);
-          showListConferenceStatistics();
           
       }else if(kq==0)
           JOptionPane.showMessageDialog(null, "Account Locked.Your account has been locked by the administrator!");
@@ -1997,12 +2036,20 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             {
              Hoinghi temp=kq.get(i);
              List<String> list=new ArrayList<>();
+             list.add(String.valueOf(temp.getIdHoiNghi()));
              list.add(temp.getTen());
              list.add(temp.getMoTaNgangon());
-             list.add(String.valueOf(temp.getThoiGian()));
+             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+             String strDate = dateFormat.format(temp.getThoiGian());          
+             list.add(String.valueOf(strDate));
              Diadiemtochuc dd=temp.getDiadiemtochuc();
              list.add(String.valueOf(dd.getDiaChi()));
              list.add(String.valueOf(temp.getSoNguoiThamDu()));
+             MemberList mbl=MemberListsDAO.findMemberListtoID(getKeyMember(), temp.getIdHoiNghi());
+             if(mbl.getConfirm()==0)
+                 list.add("N/A");
+             else if(mbl.getConfirm()==1)
+                 list.add("Confirm");
              tbStatistics.addRow(list.toArray());
              }
          }
@@ -2079,11 +2126,20 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        showPanel(jPanel_ListConference);
+        if(getBack()==1)
+            showPanel(jPanel_ListConference);
+        else if(getBack()==2)
+        {
+            showPanel(jPanel_Statistics);
+            showListConferenceStatistics();
+        }
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_signupConferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_signupConferActionPerformed
         // TODO add your handling code here:
+       Hoinghi hoinghi=HoiNghiDAO.findInforHoinghi(getKeyConference());
+     //   if(getCountMember()<hoinghi.getSoNguoiThamDu()) {
+            
         if(getKeyMember()==-1)
         {
             JOptionPane.showMessageDialog(null, "Vui lòng đăng nhập để sử dụng chức năng này");
@@ -2092,7 +2148,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         }else
         {
             MemberList mbl=new MemberList();
-            
             MemberListId idmbl=new MemberListId(getKeyConference(),getKeyMember());
             mbl.setId(idmbl);
             Hoinghi hn=HoiNghiDAO.findInforHoinghi(getKeyConference());
@@ -2102,25 +2157,69 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             mbl.setConfirm(0);
             if(MemberListsDAO.findMemberList(mbl)==true)
             {
-                
-                MemberListsDAO.addMemberList(mbl);
-                showListConferenceStatistics();
-                JOptionPane.showMessageDialog(null, "Đăng ký hội nghị thành công");
+                 if(getCountMember()<hoinghi.getSoNguoiThamDu())
+                 {
+                    MemberListsDAO.addMemberList(mbl);
+                    showListConferenceStatistics();
+                    JOptionPane.showMessageDialog(null, "Đăng ký hội nghị thành công");
+                    jButton_signupConfer.setText("Hủy đăng ký");
+                 }else JOptionPane.showMessageDialog(null, "Hoi nghi đã đủ người");
             }else if(MemberListsDAO.findMemberList(mbl)==false)
             {
-                MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
-                if(temp.getConfirm()==0)
-                {
-                    JOptionPane.showMessageDialog(null, "Bạn đã đăng ký hội nghị này và đnag chờ duyệt");
-                }
-                else if(temp.getConfirm()==1)
-                {
-                    JOptionPane.showMessageDialog(null, "Bạn đã đăng ký hội nghị này");
-                }
+//                MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
+//                if(temp.getConfirm()==0)
+//                {
+//                    JOptionPane.showMessageDialog(null, "Bạn đã đăng ký hội nghị này và đnag chờ duyệt");
+//                }
+//                else if(temp.getConfirm()==1)
+//                {
+//                    JOptionPane.showMessageDialog(null, "Bạn đã đăng ký hội nghị này");
+//                }
+ //               jButton_signupConfer.setText("Đăng ký");
+                  
+                  Date date=new Date();
+                 if(date.compareTo(hoinghi.getThoiGian())<  0)
+                     { boolean kq=MemberListsDAO.xoaMemberList(mbl);
+                        if(kq)
+                        {
+                               JOptionPane.showMessageDialog(null, "Hủy đăng ký thành công");
+                               jButton_signupConfer.setText("Đăng ký");
+                        }
+                    }   else JOptionPane.showMessageDialog(null, "Hoi nghi đã diễn ra k thể hủy");
+                  
+                  showMemberAttendConference(hn.getIdHoiNghi());
             }
            
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_signupConferActionPerformed
+
+    private void jTable_ConferenceStatisticsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ConferenceStatisticsMouseClicked
+        // TODO add your handling code here:
+        int index=jTable_ConferenceStatistics.getSelectedRow();
+         DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
+         int a=Integer.parseInt(defaultTableModel.getValueAt(index, 0).toString());
+         Hoinghi hn=HoiNghiDAO.findInforHoinghi(a);
+         setKeyConference(hn.getIdHoiNghi());
+         jLabel_DetailTen.setText(hn.getTen());
+         jLabel_DetailMotangangon.setText(hn.getMoTaNgangon());
+         jLabel_DetailNumber.setText(String.valueOf(hn.getSoNguoiThamDu()));
+         jLabel_DetailPalace.setText(hn.getDiadiemtochuc().getTen());
+         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+         String strDate = dateFormat.format(hn.getThoiGian()); 
+         jLabel_DetailTime.setText(strDate);
+         jTextPane_DetailMotachitiet.setText(hn.getMoTaChitiet());
+         ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource(hn.getHinhAnh())).getImage().getScaledInstance(661, 232, Image.SCALE_SMOOTH));
+         jLabel_DetailImage.setIcon(imageIcon);
+//         MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
+//         if(temp==null)
+//             jButton_signupConfer.setText("Đăng ký");
+//         else 
+          jButton_signupConfer.setText("Hủy đăng ký");
+         showMemberAttendConference(hn.getIdHoiNghi());
+         
+         showPanel(jPanel_DetailConference);
+         
+    }//GEN-LAST:event_jTable_ConferenceStatisticsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2168,11 +2267,11 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_ChangePass;
     private javax.swing.JButton jButton_Signin;
     private javax.swing.JButton jButton_Signin1;
     private javax.swing.JButton jButton_Signup;
+    private javax.swing.JButton jButton_signupConfer;
     private javax.swing.JComboBox<String> jComboBox_Sort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2258,6 +2357,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane_List;
     private javax.swing.JTable jTable_ConferenceStatistics;
     private javax.swing.JTable jTable_MemberAttendConfer;
+    private javax.swing.JTextField jTextCountNumberDetail;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField_EmailProfile;
     private javax.swing.JTextField jTextField_EmailSignup;

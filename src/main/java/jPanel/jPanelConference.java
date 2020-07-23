@@ -33,7 +33,7 @@ public final class jPanelConference extends javax.swing.JPanel implements MouseL
         Hoinghi hn=HoiNghiDAO.findInforHoinghi(i);
         jLabel_Tenhoinghi.setText(hn.getTen());
         jLabel_Motangan.setText(hn.getMoTaNgangon());
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss"); 
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); 
         String strDate = dateFormat.format(hn.getThoiGian());  
         jLabel_Thoigian.setText(strDate);
         jLabel_diadiem.setText(hn.getDiadiemtochuc().getDiaChi());

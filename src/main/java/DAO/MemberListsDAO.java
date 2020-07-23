@@ -79,5 +79,24 @@ public class MemberListsDAO {
         }
         return temp;
     }
+     public static boolean xoaMemberList(MemberList mbl) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        if(mbl==null){
+            return false;
+            }
+        Transaction transaction = null;
+        try {
+        transaction = session.beginTransaction();
+        session.delete(mbl);
+        transaction.commit();
+        } catch (HibernateException ex) {
+        //Log the exception
+        transaction.rollback();
+        System.err.println(ex);
+        } finally {
+        session.close();
+        }
+        return true;
+        }
     
 }
