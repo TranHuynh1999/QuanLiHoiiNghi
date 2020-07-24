@@ -35,6 +35,7 @@ import java.awt.Image;
 import java.awt.Label;
 import java.awt.event.MouseAdapter;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
@@ -155,6 +156,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         showMenu();
         showPanel(jPanel_Home);
         showListConference();
+        showComboboxDiadiem();
         showCardConference();
        // aa.addActionListener(e->switchPanes());
         //showProfile();
@@ -165,6 +167,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 //       
 //       jPanel_ListCon.add(a);
        List<Hoinghi> hoinghis=HoiNghiDAO.findAll();
+       jPanel_ListCon.removeAll();
        for(int i=0;i<hoinghis.size();i++)
        {
            Hoinghi hn=hoinghis.get(i);
@@ -203,6 +206,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 //       
 //       jPanel_ListCon.add(a);
        List<Hoinghi> hoinghis=HoiNghiDAO.findAll();
+       jPanel_ListCon1.removeAll();
        for(int i=0;i<hoinghis.size();i++)
        {
            Hoinghi hn=hoinghis.get(i);
@@ -232,6 +236,28 @@ public final class Dashboard_Form extends javax.swing.JFrame {
            });
        }
        
+    }
+    public void showListConferenceManager()
+    {
+   
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_ListConManager.getModel();
+        defaultTableModel.setRowCount(0);
+        List<Hoinghi> hoinghis=HoiNghiDAO.findAll();
+        for(int i=0;i<hoinghis.size();i++)
+        {
+            Hoinghi temp=hoinghis.get(i);
+            List<String> list=new ArrayList<>();
+            list.add(String.valueOf(temp.getIdHoiNghi()));
+            list.add(temp.getTen());
+            list.add(temp.getMoTaNgangon());
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+            String strDate = dateFormat.format(temp.getThoiGian());         
+            list.add(strDate);
+            list.add(temp.getDiadiemtochuc().getTen());
+            list.add(String.valueOf(temp.getSoNguoiThamDu()));
+            defaultTableModel.addRow(list.toArray());
+            
+        }
     }
     public void showMemberAttendConference(int idHn)
     {
@@ -372,6 +398,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                    
                                    case "Conference Manager":
                                    showPanel(jPanel_ConManager);
+                                   showListConferenceManager();
+                                   setBack(3);
                                    // jPanel_settings.setBackground(Color.GRAY);
                                    break;
                                    
@@ -536,6 +564,28 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jTextField_SearchStatistics = new javax.swing.JTextField();
         jLabel_Search = new javax.swing.JLabel();
         jPanel_ConManager = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable_ListConManager = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField_NameManage = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jTextField_NganGonManage = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTextPane_ChitietManage = new javax.swing.JTextPane();
+        jLabel27 = new javax.swing.JLabel();
+        jTextField_PathImage = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        jTextField_TimeManage = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton_ThemHoinghi = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jComboBox_Chondiadiem = new javax.swing.JComboBox<>();
+        jLabel29 = new javax.swing.JLabel();
+        jTextField_number = new javax.swing.JTextField();
         jPanel_UserManager = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel_Profile = new javax.swing.JPanel();
@@ -1176,15 +1226,203 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_ConManager.setMaximumSize(new java.awt.Dimension(922, 488));
         jPanel_ConManager.setMinimumSize(new java.awt.Dimension(922, 488));
 
+        jPanel4.setMaximumSize(new java.awt.Dimension(922, 488));
+        jPanel4.setMinimumSize(new java.awt.Dimension(922, 488));
+
+        jTable_ListConManager.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Brief Description", "Time", "Venue Location", "Number of Attendees"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_ListConManager.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_ListConManagerMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTable_ListConManager);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Username", "Confiirm"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(2).setResizable(false);
+            jTable2.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel11.setText("Name:");
+
+        jTextField_NameManage.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel21.setText("Brief Description:");
+
+        jTextField_NganGonManage.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jTextField_NganGonManage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_NganGonManageActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel24.setText("Detailed Description:");
+
+        jTextPane_ChitietManage.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jScrollPane6.setViewportView(jTextPane_ChitietManage);
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel27.setText("Image Path:");
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel28.setText("Time:");
+
+        jButton1.setText("Change");
+
+        jButton_ThemHoinghi.setText("Add");
+        jButton_ThemHoinghi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ThemHoinghiActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Save");
+
+        jComboBox_Chondiadiem.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel29.setText("Number:");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_NganGonManage)
+                    .addComponent(jScrollPane6)
+                    .addComponent(jTextField_PathImage)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel24)
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField_NameManage, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel27)
+                                .addComponent(jComboBox_Chondiadiem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addGap(198, 198, 198)
+                                .addComponent(jLabel29)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jTextField_TimeManage, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField_number, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4)))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(jButton_ThemHoinghi, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(197, 197, 197))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_NameManage, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_NganGonManage, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jTextField_PathImage, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField_TimeManage, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addComponent(jTextField_number))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox_Chondiadiem))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_ThemHoinghi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel_ConManagerLayout = new javax.swing.GroupLayout(jPanel_ConManager);
         jPanel_ConManager.setLayout(jPanel_ConManagerLayout);
         jPanel_ConManagerLayout.setHorizontalGroup(
             jPanel_ConManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 922, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel_ConManagerLayout.setVerticalGroup(
             jPanel_ConManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel_UserManager.setBackground(new java.awt.Color(255, 255, 255));
@@ -2069,6 +2307,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
     private void jLabel_SwitchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_SwitchMouseClicked
         // TODO add your handling code here:
+        
          switchPanes();
          
         
@@ -2138,13 +2377,21 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        if(getBack()==1)
-            showPanel(jPanel_ListConference);
-        else if(getBack()==2)
-        {
-            showPanel(jPanel_Statistics);
-            showListConferenceStatistics();
+        switch (getBack()) {
+            case 1:
+                showPanel(jPanel_ListConference);
+                break;
+            case 2:
+                showPanel(jPanel_Statistics);
+                showListConferenceStatistics();
+                break;
+            case 3:
+                showPanel(jPanel_ConManager);
+                break;
+            default:
+                break;
         }
+        
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jButton_signupConferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_signupConferActionPerformed
@@ -2207,10 +2454,11 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
     private void jTable_ConferenceStatisticsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ConferenceStatisticsMouseClicked
         // TODO add your handling code here:
+        if(evt.getClickCount()==2)
+        {
         int index=jTable_ConferenceStatistics.getSelectedRow();
          DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
          int a=Integer.parseInt(defaultTableModel.getValueAt(index, 0).toString());
-         System.out.println("id"+a);
          Hoinghi hn=HoiNghiDAO.findInforHoinghi(a);
          setKeyConference(hn.getIdHoiNghi());
          jLabel_DetailTen.setText(hn.getTen());
@@ -2231,6 +2479,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
          showMemberAttendConference(hn.getIdHoiNghi());
          
          showPanel(jPanel_DetailConference);
+        }
          
     }//GEN-LAST:event_jTable_ConferenceStatisticsMouseClicked
 
@@ -2267,6 +2516,102 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private void jTextField_SearchStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_SearchStatisticsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_SearchStatisticsActionPerformed
+    void showComboboxDiadiem(){
+         List<Diadiemtochuc> dd=DiaDiemToChucDAO.findAll();
+         for(int i=0;i<dd.size();i++)
+         {
+             Diadiemtochuc temp=dd.get(i);
+             jComboBox_Chondiadiem.addItem(temp.getTen());
+         }
+    }
+    private void jTable_ListConManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ListConManagerMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount()==1)
+        {
+            int index=jTable_ListConManager.getSelectedRow();
+         DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_ListConManager.getModel();
+         int a=Integer.parseInt(defaultTableModel.getValueAt(index, 0).toString());
+         Hoinghi hn=HoiNghiDAO.findInforHoinghi(a);
+         setKeyConference(hn.getIdHoiNghi());
+         jTextField_NameManage.setText(hn.getTen());
+         jTextField_NganGonManage.setText(hn.getMoTaNgangon());
+         jTextPane_ChitietManage.setText(hn.getMoTaChitiet());
+         jTextField_PathImage.setText(hn.getHinhAnh());
+         jTextField_TimeManage.setText(String.valueOf(hn.getThoiGian()));
+         jTextField_number.setText(String.valueOf(hn.getSoNguoiThamDu()));
+//         List<Diadiemtochuc> dd=DiaDiemToChucDAO.findAll();
+//         for(int i=0;i<dd.size();i++)
+//         {
+//             Diadiemtochuc temp=dd.get(i);
+//             jComboBox_Chondiadiem.addItem(temp.getTen());
+//         }
+         
+         jComboBox_Chondiadiem.setSelectedItem(hn.getDiadiemtochuc().getTen());
+         
+        }
+        if(evt.getClickCount()==2)
+        {
+        int index=jTable_ListConManager.getSelectedRow();
+         DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_ListConManager.getModel();
+         int a=Integer.parseInt(defaultTableModel.getValueAt(index, 0).toString());
+         Hoinghi hn=HoiNghiDAO.findInforHoinghi(a);
+         setKeyConference(hn.getIdHoiNghi());
+         jLabel_DetailTen.setText(hn.getTen());
+         jLabel_DetailMotangangon.setText(hn.getMoTaNgangon());
+         jLabel_DetailNumber.setText(String.valueOf(hn.getSoNguoiThamDu()));
+         jLabel_DetailPalace.setText(hn.getDiadiemtochuc().getTen());
+         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+         String strDate = dateFormat.format(hn.getThoiGian()); 
+         jLabel_DetailTime.setText(strDate);
+         jTextPane_DetailMotachitiet.setText(hn.getMoTaChitiet());
+         ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource(hn.getHinhAnh())).getImage().getScaledInstance(661, 232, Image.SCALE_SMOOTH));
+         jLabel_DetailImage.setIcon(imageIcon);
+//         MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
+//         if(temp==null)
+//             jButton_signupConfer.setText("Đăng ký");
+//         else 
+         jButton_signupConfer.setVisible(false);
+         showMemberAttendConference(hn.getIdHoiNghi());
+         
+         showPanel(jPanel_DetailConference);
+        }
+    }//GEN-LAST:event_jTable_ListConManagerMouseClicked
+
+    private void jButton_ThemHoinghiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemHoinghiActionPerformed
+        // TODO add your handling code here:
+        Hoinghi hn=new Hoinghi();
+        hn.setTen(jTextField_NameManage.getText());
+        hn.setMoTaChitiet(jTextPane_ChitietManage.getText());
+        hn.setMoTaNgangon(jTextField_NganGonManage.getText());
+        hn.setHinhAnh(jTextField_PathImage.getText());
+        String chonDd=(String)jComboBox_Chondiadiem.getSelectedItem();
+ 
+        Diadiemtochuc dd=DiaDiemToChucDAO.findDiadiem(chonDd);
+        hn.setDiadiemtochuc(dd);
+        hn.setSoNguoiThamDu(Integer.valueOf(jTextField_number.getText()));
+        String thoigian=jTextField_TimeManage.getText();
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss").parse(thoigian);
+        } catch (ParseException ex) {
+            Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        hn.setThoiGian(date);
+        boolean kq=HoiNghiDAO.themHoiNghi(hn);
+        if(kq)
+        {
+            JOptionPane.showMessageDialog(null, "Them Hoi nghi thanh cong");
+            showListConferenceManager();
+            showListConference();
+            showCardConference();
+        }
+        else    System.out.println("false");
+        
+    }//GEN-LAST:event_jButton_ThemHoinghiActionPerformed
+
+    private void jTextField_NganGonManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NganGonManageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_NganGonManageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2314,14 +2659,19 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_ChangePass;
     private javax.swing.JButton jButton_Signin;
     private javax.swing.JButton jButton_Signin1;
     private javax.swing.JButton jButton_Signup;
+    private javax.swing.JButton jButton_ThemHoinghi;
     private javax.swing.JButton jButton_signupConfer;
+    private javax.swing.JComboBox<String> jComboBox_Chondiadiem;
     private javax.swing.JComboBox<String> jComboBox_Sort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -2332,10 +2682,15 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2372,6 +2727,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -2400,18 +2756,29 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane_Card;
     private javax.swing.JScrollPane jScrollPane_List;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable_ConferenceStatistics;
+    private javax.swing.JTable jTable_ListConManager;
     private javax.swing.JTable jTable_MemberAttendConfer;
     private javax.swing.JTextField jTextCountNumberDetail;
     private javax.swing.JTextField jTextField_EmailProfile;
     private javax.swing.JTextField jTextField_EmailSignup;
+    private javax.swing.JTextField jTextField_NameManage;
     private javax.swing.JTextField jTextField_NameSignup;
+    private javax.swing.JTextField jTextField_NganGonManage;
+    private javax.swing.JTextField jTextField_PathImage;
     private javax.swing.JTextField jTextField_ProfileName;
     private javax.swing.JTextField jTextField_SearchStatistics;
     private javax.swing.JTextField jTextField_Signin;
+    private javax.swing.JTextField jTextField_TimeManage;
     private javax.swing.JTextField jTextField_UsernameSignup;
+    private javax.swing.JTextField jTextField_number;
+    private javax.swing.JTextPane jTextPane_ChitietManage;
     private javax.swing.JTextPane jTextPane_DetailMotachitiet;
     // End of variables declaration//GEN-END:variables
 }

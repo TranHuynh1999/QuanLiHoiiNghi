@@ -45,5 +45,18 @@ public class DiaDiemToChucDAO {
             session.close();
     }
     return dd;
-}
+    }
+     public static Diadiemtochuc findDiadiem(String tenDiadiem){
+            Diadiemtochuc dd=null;
+            List<Diadiemtochuc> diadiemtochucs=DiaDiemToChucDAO.findAll();
+            for(int i=0;i<diadiemtochucs.size();i++)
+            {
+                Diadiemtochuc temp=diadiemtochucs.get(i);
+                if(temp.getTen().equals(tenDiadiem))
+                {
+                    dd=temp;
+                }
+            }
+            return dd;
+    }
 }

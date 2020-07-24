@@ -50,7 +50,26 @@ public class HoiNghiDAO {
     }
     return true;
     }
-    
+    public static boolean updateConference(Hoinghi hn) {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                if (HoiNghiDAO.findInforHoinghi(hn.getIdHoiNghi())==null)
+                {
+                    return false;
+                }
+                Transaction transaction = null;
+                try {
+                    transaction = session.beginTransaction();
+                    session.update(hn);
+                    transaction.commit();
+                } catch (HibernateException ex) {
+                //Log the exception
+                    transaction.rollback();
+                    System.err.println(ex);
+                } finally {
+                    session.close();
+                }
+                return true;
+    }
      public static Hoinghi findInforHoinghi(int idHoiNghi){
             Hoinghi hn=null;
             Session session=HibernateUtil.getSessionFactory().openSession();

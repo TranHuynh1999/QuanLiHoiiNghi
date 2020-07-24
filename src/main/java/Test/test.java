@@ -216,17 +216,21 @@ public class test {
 //            ml1.setId(idmbl);
 //            MemberList temp=MemberListsDAO.findMemberListtoID(35, 1);
 //            System.out.println("tm"+temp.getConfirm());
-                Hoinghi hn=HoiNghiDAO.findInforHoinghi(2);
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-                     Date date = new Date();  
-                    
-                    //Date d=formatter.format(date) ;
-                    // DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
-                    // String strDate = dateFormat.format(hn.getThoiGian());  
-                       System.out.println( date.compareTo(hn.getThoiGian()));
-        }
-            
-        }
+//                Hoinghi hn=HoiNghiDAO.findInforHoinghi(2);
+//                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+//                     Date date = new Date();  
+//                    
+//                    //Date d=formatter.format(date) ;
+//                    // DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+//                    // String strDate = dateFormat.format(hn.getThoiGian());  
+//                       System.out.println( date.compareTo(hn.getThoiGian()));
+//        }
+//   
+              String a="KHTN";
+              Diadiemtochuc dd=DiaDiemToChucDAO.findDiadiem(a);
+              System.out.println(dd.getIdDiaDiemToChuc()+dd.getTen());
+    }
+}
     
     
 
