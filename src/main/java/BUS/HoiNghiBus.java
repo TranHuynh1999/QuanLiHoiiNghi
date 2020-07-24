@@ -85,4 +85,26 @@ public class HoiNghiBus {
                              return kq;
     }
     
+    public static List<Hoinghi> seachAttendeesListConferenceMember(int idMember,String Search)
+    {
+        Member mb=MemberDao.findInforMember(idMember);
+                            Iterator<MemberList> memberlists= mb.getMemberLists().iterator(); 
+                            List<Hoinghi> kq=new ArrayList<>();
+                            List<Hoinghi> kqtemp=new ArrayList<>();
+                            while (memberlists.hasNext()) {
+                                    Hoinghi hn=memberlists.next().getHoinghi();
+                                    kq.add(hn);
+                                        }
+                            for(int i=0;i<kq.size();i++)
+                            {
+                                Hoinghi temp=kq.get(i);
+                                
+                                if(String.valueOf(temp.getIdHoiNghi()).equals(Search)||temp.getTen().equals(Search))
+                                {    
+                                    kqtemp.add(temp);
+                                }
+                            }
+                            kq=kqtemp;
+                            return kq;
+    }
 }

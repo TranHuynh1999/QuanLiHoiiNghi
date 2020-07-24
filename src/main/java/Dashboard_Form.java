@@ -38,6 +38,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 
 /*
@@ -531,8 +533,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_ConferenceStatistics = new javax.swing.JTable();
         jComboBox_Sort = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        jTextField_SearchStatistics = new javax.swing.JTextField();
+        jLabel_Search = new javax.swing.JLabel();
         jPanel_ConManager = new javax.swing.JPanel();
         jPanel_UserManager = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -1109,12 +1111,22 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
-        jTextField1.setText("Search...");
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextField_SearchStatistics.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
+        jTextField_SearchStatistics.setText("Search ID, Name");
+        jTextField_SearchStatistics.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextField_SearchStatistics.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_SearchStatisticsActionPerformed(evt);
+            }
+        });
 
-        jLabel11.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\Documents\\NetBeansProjects\\QuanLiHoiiNghi\\src\\main\\resources\\IMAGES\\search.png")); // NOI18N
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_Search.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\Documents\\NetBeansProjects\\QuanLiHoiiNghi\\src\\main\\resources\\IMAGES\\search.png")); // NOI18N
+        jLabel_Search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel_Search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel_SearchMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1125,9 +1137,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel11)
+                        .addComponent(jLabel_Search)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_SearchStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(jComboBox_Sort, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE))
@@ -1138,9 +1150,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
+                    .addComponent(jLabel_Search)
                     .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_SearchStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBox_Sort, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
@@ -2178,7 +2190,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
  //               jButton_signupConfer.setText("Đăng ký");
                   
                   Date date=new Date();
-                 if(date.compareTo(hoinghi.getThoiGian())<  0)
+                 if(date.compareTo(hoinghi.getThoiGian())<0)
                      { boolean kq=MemberListsDAO.xoaMemberList(mbl);
                         if(kq)
                         {
@@ -2198,6 +2210,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         int index=jTable_ConferenceStatistics.getSelectedRow();
          DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
          int a=Integer.parseInt(defaultTableModel.getValueAt(index, 0).toString());
+         System.out.println("id"+a);
          Hoinghi hn=HoiNghiDAO.findInforHoinghi(a);
          setKeyConference(hn.getIdHoiNghi());
          jLabel_DetailTen.setText(hn.getTen());
@@ -2220,6 +2233,40 @@ public final class Dashboard_Form extends javax.swing.JFrame {
          showPanel(jPanel_DetailConference);
          
     }//GEN-LAST:event_jTable_ConferenceStatisticsMouseClicked
+
+    private void jLabel_SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_SearchMouseClicked
+        // TODO add your handling code here:
+        List<Hoinghi> kq=new ArrayList<>();
+        String search=jTextField_SearchStatistics.getText().trim();
+        kq=HoiNghiBus.seachAttendeesListConferenceMember(getKeyMember(),search);
+        DefaultTableModel tbStatistics=(DefaultTableModel) jTable_ConferenceStatistics.getModel();
+            tbStatistics.setRowCount(0);
+            for(int i=0;i<kq.size();i++)
+            {
+             Hoinghi temp=kq.get(i);
+             List<String> list=new ArrayList<>();
+             list.add(String.valueOf(temp.getIdHoiNghi()));
+             list.add(temp.getTen());
+             list.add(temp.getMoTaNgangon());
+             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+             String strDate = dateFormat.format(temp.getThoiGian());          
+             list.add(String.valueOf(strDate));
+             Diadiemtochuc dd=temp.getDiadiemtochuc();
+             list.add(String.valueOf(dd.getDiaChi()));
+             list.add(String.valueOf(temp.getSoNguoiThamDu()));
+             MemberList mbl=MemberListsDAO.findMemberListtoID(getKeyMember(), temp.getIdHoiNghi());
+             if(mbl.getConfirm()==0)
+                 list.add("N/A");
+             else if(mbl.getConfirm()==1)
+                 list.add("Confirm");
+             tbStatistics.addRow(list.toArray());
+             }
+         
+    }//GEN-LAST:event_jLabel_SearchMouseClicked
+
+    private void jTextField_SearchStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_SearchStatisticsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_SearchStatisticsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2275,7 +2322,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox_Sort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -2305,6 +2351,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_DetailTime;
     private javax.swing.JLabel jLabel_ProfileName;
     private javax.swing.JLabel jLabel_ProfileUsername;
+    private javax.swing.JLabel jLabel_Search;
     private javax.swing.JLabel jLabel_SignIn;
     private javax.swing.JLabel jLabel_Signup;
     private javax.swing.JLabel jLabel_Switch;
@@ -2358,11 +2405,11 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JTable jTable_ConferenceStatistics;
     private javax.swing.JTable jTable_MemberAttendConfer;
     private javax.swing.JTextField jTextCountNumberDetail;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField_EmailProfile;
     private javax.swing.JTextField jTextField_EmailSignup;
     private javax.swing.JTextField jTextField_NameSignup;
     private javax.swing.JTextField jTextField_ProfileName;
+    private javax.swing.JTextField jTextField_SearchStatistics;
     private javax.swing.JTextField jTextField_Signin;
     private javax.swing.JTextField jTextField_UsernameSignup;
     private javax.swing.JTextPane jTextPane_DetailMotachitiet;
