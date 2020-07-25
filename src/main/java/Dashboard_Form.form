@@ -1402,7 +1402,7 @@
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                           <Component id="jButton_ThemHoinghi" min="-2" pref="81" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="81" max="-2" attributes="0"/>
+                          <Component id="jButton_DuyetMemberAttendConfer" min="-2" pref="81" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1452,10 +1452,10 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton1" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="jButton1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jButton_ThemHoinghi" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jButton3" max="32767" attributes="0"/>
+                              <Component id="jButton_DuyetMemberAttendConfer" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1475,9 +1475,9 @@
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="6" rowCount="0">
                             <Column editable="false" title="ID" type="java.lang.Object"/>
-                            <Column editable="true" title="Name" type="java.lang.Object"/>
+                            <Column editable="false" title="Name" type="java.lang.Object"/>
                             <Column editable="false" title="Brief Description" type="java.lang.Object"/>
-                            <Column editable="true" title="Time" type="java.lang.Object"/>
+                            <Column editable="false" title="Time" type="java.lang.Object"/>
                             <Column editable="false" title="Venue Location" type="java.lang.Object"/>
                             <Column editable="false" title="Number of Attendees" type="java.lang.Object"/>
                           </Table>
@@ -1533,14 +1533,14 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable2">
+                    <Component class="javax.swing.JTable" name="jTable_MemberAttendManage">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="4" rowCount="1">
                             <Column editable="false" title="ID" type="java.lang.Object"/>
                             <Column editable="false" title="Name" type="java.lang.Object"/>
                             <Column editable="false" title="Username" type="java.lang.Object"/>
-                            <Column editable="false" title="Confiirm" type="java.lang.Boolean"/>
+                            <Column editable="true" title="Confiirm" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1655,6 +1655,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Change"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton_ThemHoinghi">
                   <Properties>
@@ -1664,10 +1667,13 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ThemHoinghiActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton3">
+                <Component class="javax.swing.JButton" name="jButton_DuyetMemberAttendConfer">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Save"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_DuyetMemberAttendConferActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox_Chondiadiem">
                   <Properties>

@@ -60,10 +60,10 @@ public class MemberListsDAO {
         {
             if(mbl.getHoinghi().getIdHoiNghi()==memberLists.get(i).getId().getIdHoinghi()&&mbl.getMember().getIdMember()==memberLists.get(i).getMember().getIdMember())
                     {
-                        return false;
+                        return false;//có là false
                     }
         }
-        return true;
+        return true;//k có là true
     }
 
      public static MemberList findMemberListtoID(int idMember,int idCon)
@@ -98,5 +98,25 @@ public class MemberListsDAO {
         }
         return true;
         }
-    
+    public static boolean updateMemberlist(MemberList mbl) {
+                
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                if (MemberListsDAO.findMemberList(mbl)==true)
+                {
+                    return false;
+                }
+                Transaction transaction = null;
+                try {
+                    transaction = session.beginTransaction();
+                    session.update(mbl);
+                    transaction.commit();
+                } catch (HibernateException ex) {
+                //Log the exception
+                    transaction.rollback();
+                    System.err.println(ex);
+                } finally {
+                    session.close();
+                }
+                return true;
+    }
 }

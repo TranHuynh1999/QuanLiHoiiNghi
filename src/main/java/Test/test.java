@@ -225,10 +225,15 @@ public class test {
 //                    // String strDate = dateFormat.format(hn.getThoiGian());  
 //                       System.out.println( date.compareTo(hn.getThoiGian()));
 //        }
-//   
-              String a="KHTN";
-              Diadiemtochuc dd=DiaDiemToChucDAO.findDiadiem(a);
-              System.out.println(dd.getIdDiaDiemToChuc()+dd.getTen());
+//      
+               
+                MemberList mbl=MemberListsDAO.findMemberListtoID(35, 1);
+                System.out.println(mbl.getHoinghi().getIdHoiNghi());
+                System.out.println(mbl.getMember().getIdMember());
+                mbl.setConfirm(1);
+                boolean kq=MemberListsDAO.updateMemberlist(mbl);
+                if(kq)System.out.println("true");
+                else    System.out.println("fasle");
     }
 }
     

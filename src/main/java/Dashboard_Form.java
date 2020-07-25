@@ -266,23 +266,54 @@ public final class Dashboard_Form extends javax.swing.JFrame {
            tableModel.setRowCount(0);
        Hoinghi hn=HoiNghiDAO.findInforHoinghi(idHn);
        Iterator<MemberList> memberLists= hn.getMemberLists().iterator();
-        setCountMember(0);
+       setCountMember(0);
        while(memberLists.hasNext())
        {
            MemberList temp=memberLists.next();
            if(temp.getConfirm()==1)
            {
            setCountMember(getCountMember()+1);
-           Member mb=MemberDao.findInforMember(temp.getMember().getIdMember());
            List<String> list=new ArrayList<>();
-           list.add(mb.getTen());
-           list.add(mb.getEmail()); 
+           list.add(temp.getMember().getTen());
+           list.add(temp.getMember().getEmail()); 
            tableModel.addRow(list.toArray());
            }
        }
         jTextCountNumberDetail.setText(String.valueOf(getCountMember()));
        
     }
+    public void showMemberAttendConferManagement(int idHn)
+    {
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_MemberAttendManage.getModel();
+        if(defaultTableModel.getRowCount()!=0)
+            defaultTableModel.setRowCount(0);
+        Hoinghi hn=HoiNghiDAO.findInforHoinghi(idHn);
+        Iterator<MemberList> memberlisIt=hn.getMemberLists().iterator();
+        while(memberlisIt.hasNext())
+        {
+            MemberList temp=memberlisIt.next();
+            List<String> list=new ArrayList<>();
+            
+            list.add(String.valueOf(temp.getMember().getIdMember()));
+            list.add(temp.getMember().getTen());
+            list.add(temp.getMember().getUserName());
+            if(temp.getConfirm()==1)
+            {
+                list.add("Confirm");
+               
+            }else if(temp.getConfirm()==0)
+                list.add("N/A");
+            defaultTableModel.addRow(list.toArray());
+//            if(temp.getConfirm()==1)
+//            {
+//                defaultTableModel.addColumn(new Boolean(true));
+//               
+//            }else  defaultTableModel.addColumn(new Boolean(false));
+            
+        }
+    }       
+    
+    
     public void showProfile(){
         
         
@@ -387,12 +418,14 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                              case "List Conference":
                                    showPanel(jPanel_ListConference);
                                    setBack(1);
+                                    jButton_signupConfer.setVisible(true);
                                    break;
                                    
                             case "Conference statistics":
                                    showPanel(jPanel_Statistics);
                                    setBack(2);
                                    showListConferenceStatistics();
+                                    jButton_signupConfer.setVisible(true);
                                    // jPanel_products.setBackground(Color.BLUE);
                                    break;
                                    
@@ -568,7 +601,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable_ListConManager = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable_MemberAttendManage = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         jTextField_NameManage = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
@@ -582,7 +615,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jTextField_TimeManage = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton_ThemHoinghi = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton_DuyetMemberAttendConfer = new javax.swing.JButton();
         jComboBox_Chondiadiem = new javax.swing.JComboBox<>();
         jLabel29 = new javax.swing.JLabel();
         jTextField_number = new javax.swing.JTextField();
@@ -1238,7 +1271,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1252,7 +1285,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTable_ListConManager);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_MemberAttendManage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null}
             },
@@ -1260,27 +1293,20 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 "ID", "Name", "Username", "Confiirm"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane5.setViewportView(jTable_MemberAttendManage);
+        if (jTable_MemberAttendManage.getColumnModel().getColumnCount() > 0) {
+            jTable_MemberAttendManage.getColumnModel().getColumn(0).setResizable(false);
+            jTable_MemberAttendManage.getColumnModel().getColumn(1).setResizable(false);
+            jTable_MemberAttendManage.getColumnModel().getColumn(2).setResizable(false);
+            jTable_MemberAttendManage.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
@@ -1311,6 +1337,11 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jLabel28.setText("Time:");
 
         jButton1.setText("Change");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton_ThemHoinghi.setText("Add");
         jButton_ThemHoinghi.addActionListener(new java.awt.event.ActionListener() {
@@ -1319,7 +1350,12 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Save");
+        jButton_DuyetMemberAttendConfer.setText("Save");
+        jButton_DuyetMemberAttendConfer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_DuyetMemberAttendConferActionPerformed(evt);
+            }
+        });
 
         jComboBox_Chondiadiem.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
 
@@ -1367,7 +1403,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addComponent(jButton_ThemHoinghi, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_DuyetMemberAttendConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(197, 197, 197))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1408,9 +1444,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton_ThemHoinghi, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton_DuyetMemberAttendConfer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -2528,7 +2564,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(evt.getClickCount()==1)
         {
-            int index=jTable_ListConManager.getSelectedRow();
+         int index=jTable_ListConManager.getSelectedRow();
          DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_ListConManager.getModel();
          int a=Integer.parseInt(defaultTableModel.getValueAt(index, 0).toString());
          Hoinghi hn=HoiNghiDAO.findInforHoinghi(a);
@@ -2547,7 +2583,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 //         }
          
          jComboBox_Chondiadiem.setSelectedItem(hn.getDiadiemtochuc().getTen());
-         
+         showMemberAttendConferManagement(a);
         }
         if(evt.getClickCount()==2)
         {
@@ -2604,14 +2640,92 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             showListConferenceManager();
             showListConference();
             showCardConference();
+            
         }
-        else    System.out.println("false");
+        else    System.out.println("Fail");
         
     }//GEN-LAST:event_jButton_ThemHoinghiActionPerformed
 
     private void jTextField_NganGonManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NganGonManageActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_NganGonManageActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       int index=jTable_ListConManager.getSelectedRow();
+       if(index>-1)
+       {
+        Hoinghi hn=HoiNghiDAO.findInforHoinghi(getKeyConference());
+        hn.setTen(jTextField_NameManage.getText());
+        hn.setMoTaChitiet(jTextPane_ChitietManage.getText());
+        hn.setMoTaNgangon(jTextField_NganGonManage.getText());
+        hn.setHinhAnh(jTextField_PathImage.getText());
+        String chonDd=(String)jComboBox_Chondiadiem.getSelectedItem();
+ 
+        Diadiemtochuc dd=DiaDiemToChucDAO.findDiadiem(chonDd);
+        hn.setDiadiemtochuc(dd);
+        hn.setSoNguoiThamDu(Integer.valueOf(jTextField_number.getText()));
+        String thoigian=jTextField_TimeManage.getText();
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss").parse(thoigian);
+        } catch (ParseException ex) {
+            Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        hn.setThoiGian(date);
+        boolean kq=HoiNghiDAO.updateConference(hn);
+        if(kq)
+        {
+            JOptionPane.showMessageDialog(null, "Sửa đổi hội nghị thành công");
+            showListConferenceManager();
+            showListConference();
+            showCardConference();
+        
+        }
+        else    System.out.println("false");
+       }else JOptionPane.showMessageDialog(null, "Vui lòng chọn hội nghị cần sửa");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton_DuyetMemberAttendConferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DuyetMemberAttendConferActionPerformed
+        // TODO add your handling code here:
+       int index=jTable_ListConManager.getSelectedRow();
+       if(index>-1)
+       {
+        boolean kq = false;   
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_MemberAttendManage.getModel();
+        for(int i=0;i<defaultTableModel.getRowCount();i++){
+                    int a=Integer.parseInt(defaultTableModel.getValueAt(i, 0).toString());
+                    MemberList mbl=MemberListsDAO.findMemberListtoID(a, getKeyConference());
+                      
+                    String confirm=(defaultTableModel.getValueAt(i, 3).toString());
+                   
+                    String b="N/A";
+                    String c="Confirm";
+                    if( confirm.equals(b))
+                    {           
+                                mbl.setConfirm(0);
+                                
+                    }
+                    else 
+                    {
+                                mbl.setConfirm(1);
+                              
+                    }
+                    boolean temp=MemberListsDAO.updateMemberlist(mbl);
+                    
+                    if(temp) {
+                        kq=temp;
+                    }
+                    else break;
+                }      
+                if(kq) 
+                     {
+                        JOptionPane.showMessageDialog(null, "Update Success");
+                        showListConferenceStatistics();
+                    }
+                    else JOptionPane.showMessageDialog(null, "Update Failed");
+       }else JOptionPane.showMessageDialog(null, "Vui lòng chọn hội nghị cần sửa");
+    }//GEN-LAST:event_jButton_DuyetMemberAttendConferActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2660,8 +2774,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_ChangePass;
+    private javax.swing.JButton jButton_DuyetMemberAttendConfer;
     private javax.swing.JButton jButton_Signin;
     private javax.swing.JButton jButton_Signin1;
     private javax.swing.JButton jButton_Signup;
@@ -2761,10 +2875,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane_Card;
     private javax.swing.JScrollPane jScrollPane_List;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable_ConferenceStatistics;
     private javax.swing.JTable jTable_ListConManager;
     private javax.swing.JTable jTable_MemberAttendConfer;
+    private javax.swing.JTable jTable_MemberAttendManage;
     private javax.swing.JTextField jTextCountNumberDetail;
     private javax.swing.JTextField jTextField_EmailProfile;
     private javax.swing.JTextField jTextField_EmailSignup;
