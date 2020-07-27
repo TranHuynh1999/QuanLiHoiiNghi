@@ -154,6 +154,26 @@ public class MemberDao {
         }
         return true;
     }
+     public static boolean updateMember(Member mb) {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                if (MemberDao.findInforMember(mb.getIdMember())==null)
+                {
+                    return false;
+                }
+                Transaction transaction = null;
+                try {
+                    transaction = session.beginTransaction();
+                    session.update(mb);
+                    transaction.commit();
+                } catch (HibernateException ex) {
+                //Log the exception
+                    transaction.rollback();
+                    System.err.println(ex);
+                } finally {
+                    session.close();
+                }
+                return true;
+    }
 
 }
    

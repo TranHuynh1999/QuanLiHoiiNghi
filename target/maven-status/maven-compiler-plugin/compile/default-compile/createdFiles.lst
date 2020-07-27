@@ -1,3 +1,4 @@
+BUS\MemberBus$1.class
 POJOs\Hoinghi.class
 DAO\HoiNghiDAO.class
 Dashboard_Form$10.class
@@ -16,17 +17,20 @@ Dashboard_Form$34.class
 Dashboard_Form$2.class
 DAO\MemberListsDAO.class
 Dashboard_Form$4.class
+BUS\MemberBus$2.class
 Dashboard_Form$16.class
 Dashboard_Form$36.class
 POJOs\Diadiemtochuc.class
 POJOs\Member.class
 POJOs\MemberList.class
 Dashboard_Form$1.class
+Dashboard_Form$42.class
 Dashboard_Form$13.class
 Dashboard_Form$22.class
 Dashboard_Form$28.class
 BUS\HoiNghiBus$1.class
 Dashboard_Form$25.class
+BUS\MemberBus.class
 DAO\DiaDiemToChucDAO.class
 jPanel\jPanelConference.class
 POJOs\MemberListId.class
@@ -39,7 +43,9 @@ Dashboard_Form$19.class
 Dashboard_Form$7.class
 Dashboard_Form$21.class
 Dashboard_Form$31.class
+Dashboard_Form$41.class
 Dashboard_Form$11.class
+Dashboard_Form$39.class
 BUS\HoiNghiBus$3.class
 jPanel\JpanelCardConference.class
 Dashboard_Form$9.class
@@ -50,6 +56,7 @@ Dashboard_Form.class
 Dashboard_Form$32.class
 Dashboard_Form$38.class
 Test\test.class
+Dashboard_Form$40.class
 BUS\HoiNghiBus.class
 Dashboard_Form$35.class
 Dashboard_Form$6.class

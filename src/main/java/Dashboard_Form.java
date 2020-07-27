@@ -2,6 +2,7 @@
 
 
 import BUS.HoiNghiBus;
+import BUS.MemberBus;
 import DAO.*;
 import POJOs.*;
 import jPanel.JpanelCardConference;
@@ -221,7 +222,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                    jLabel_DetailMotangangon.setText(hn.getMoTaNgangon());
                    jLabel_DetailNumber.setText(String.valueOf(hn.getSoNguoiThamDu()));
                    jLabel_DetailPalace.setText(hn.getDiadiemtochuc().getTen());
-                   jLabel_DetailTime.setText(String.valueOf(hn.getThoiGian()));
+                   DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss"); 
+                   String strDate = dateFormat.format(hn.getThoiGian());  
+                   jLabel_DetailTime.setText(strDate);
                    jTextPane_DetailMotachitiet.setText(hn.getMoTaChitiet());
                    ImageIcon imageIcon = new ImageIcon(new ImageIcon(this.getClass().getResource(hn.getHinhAnh())).getImage().getScaledInstance(661, 232, Image.SCALE_SMOOTH));
                    jLabel_DetailImage.setIcon(imageIcon);
@@ -312,13 +315,39 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             
         }
     }       
-    
+    public void showMemberManage()
+    {
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_UserManage.getModel();
+        defaultTableModel.setRowCount(0);
+        List<Member> members=MemberDao.findAll();
+        for(int i=0;i<members.size();i++)
+        {
+            Member temp=members.get(i);
+            if(temp.getVaiTro()==0)
+            {
+            List<String> list=new ArrayList<>();
+            list.add(String.valueOf(temp.getIdMember()));
+            list.add(temp.getTen());
+            list.add(temp.getUserName());
+            list.add(temp.getEmail());
+            if(temp.getActive()==1)
+            {
+                list.add("active");
+            }
+            else if(temp.getActive()==0)
+            {
+                list.add("inactive");
+            }
+            defaultTableModel.addRow(list.toArray());
+            }
+        }
+    }
     
     public void showProfile(){
         
         
       
-        Member mb=MemberDao.findInforMember(keyMember);
+        Member mb=MemberDao.findInforMember(getKeyMember());
 
         if(mb!=null)
          {
@@ -418,14 +447,14 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                              case "List Conference":
                                    showPanel(jPanel_ListConference);
                                    setBack(1);
-                                    jButton_signupConfer.setVisible(true);
+                                   jButton_signupConfer.setVisible(true);
                                    break;
                                    
                             case "Conference statistics":
                                    showPanel(jPanel_Statistics);
                                    setBack(2);
                                    showListConferenceStatistics();
-                                    jButton_signupConfer.setVisible(true);
+                                   jButton_signupConfer.setVisible(true);
                                    // jPanel_products.setBackground(Color.BLUE);
                                    break;
                                    
@@ -438,6 +467,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                    
                                    case "User Manager":
                                    showPanel(jPanel_UserManager);
+                                   showMemberManage();
                                    // jPanel_contact.setBackground(Color.GREEN);
                                    break;
                                    
@@ -582,6 +612,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jLabel_DetailNumber = new javax.swing.JLabel();
         jButton_signupConfer = new javax.swing.JButton();
         jTextCountNumberDetail = new javax.swing.JTextField();
+        jLabel30 = new javax.swing.JLabel();
         jPanel_ListConference = new javax.swing.JPanel();
         jScrollPane_List = new javax.swing.JScrollPane();
         jPanel_ListCon = new javax.swing.JPanel();
@@ -621,6 +652,12 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jTextField_number = new javax.swing.JTextField();
         jPanel_UserManager = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable_UserManage = new javax.swing.JTable();
+        jButton_NganChanMember = new javax.swing.JButton();
+        jComboBox_SortMember = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        jComboBox_Filter = new javax.swing.JComboBox<>();
         jPanel_Profile = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
@@ -887,7 +924,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
         jLabel_DetailMotangangon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel_DetailMotangangon.setForeground(new java.awt.Color(228, 241, 254));
-        jLabel_DetailMotangangon.setText("jLabel5");
 
         jTable_MemberAttendConfer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -899,21 +935,17 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable_MemberAttendConfer);
 
-        jLabel_DetailImage.setText("jLabel21");
-
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         jTextPane_DetailMotachitiet.setEditable(false);
         jTextPane_DetailMotachitiet.setBackground(new java.awt.Color(204, 204, 204));
         jTextPane_DetailMotachitiet.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextPane_DetailMotachitiet.setText("sadshdgdsahdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\ndsadsad\nfsd\nfdhggbjdjnlksd\n");
         jScrollPane1.setViewportView(jTextPane_DetailMotachitiet);
 
         jPanel13.setBackground(new java.awt.Color(248, 148, 6));
 
         jLabel_DetailTen.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel_DetailTen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_DetailTen.setText("jLabel1");
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/back.png"))); // NOI18N
@@ -930,7 +962,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel_DetailTen, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel_DetailTen, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -952,15 +985,12 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 
         jLabel_DetailTime.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel_DetailTime.setForeground(new java.awt.Color(228, 241, 254));
-        jLabel_DetailTime.setText("jLabel1");
 
         jLabel_DetailPalace.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel_DetailPalace.setForeground(new java.awt.Color(228, 241, 254));
-        jLabel_DetailPalace.setText("jLabel1");
 
         jLabel_DetailNumber.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel_DetailNumber.setForeground(new java.awt.Color(228, 241, 254));
-        jLabel_DetailNumber.setText("jLabel1");
 
         jButton_signupConfer.setBackground(new java.awt.Color(34, 167, 240));
         jButton_signupConfer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -971,6 +1001,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 jButton_signupConferActionPerformed(evt);
             }
         });
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(228, 241, 254));
+        jLabel30.setText("Total:");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -983,13 +1017,18 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jTextCountNumberDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_signupConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jButton_signupConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addGap(50, 50, 50)
+                                        .addComponent(jTextCountNumberDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(33, 33, 33))))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(jLabel_DetailImage, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1044,14 +1083,14 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                         .addComponent(jLabel_DetailImage, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addComponent(jTextCountNumberDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton_signupConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
         );
@@ -1175,7 +1214,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             }
         });
         jTable_ConferenceStatistics.setGridColor(new java.awt.Color(255, 51, 51));
-        jTable_ConferenceStatistics.setSelectionBackground(new java.awt.Color(0, 0, 153));
+        jTable_ConferenceStatistics.setSelectionBackground(new java.awt.Color(102, 102, 255));
         jTable_ConferenceStatistics.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable_ConferenceStatisticsMouseClicked(evt);
@@ -1184,6 +1223,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable_ConferenceStatistics);
 
         jComboBox_Sort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by...", "Name", "Time", "Number of Attendees" }));
+        jComboBox_Sort.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jComboBox_Sort.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBox_Sort.setMaximumSize(new java.awt.Dimension(92, 32));
         jComboBox_Sort.setMinimumSize(new java.awt.Dimension(92, 32));
@@ -1259,6 +1299,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_ConManager.setMaximumSize(new java.awt.Dimension(922, 488));
         jPanel_ConManager.setMinimumSize(new java.awt.Dimension(922, 488));
 
+        jPanel4.setBackground(new java.awt.Color(44, 62, 60));
         jPanel4.setMaximumSize(new java.awt.Dimension(922, 488));
         jPanel4.setMinimumSize(new java.awt.Dimension(922, 488));
 
@@ -1310,11 +1351,13 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         }
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(228, 241, 254));
         jLabel11.setText("Name:");
 
         jTextField_NameManage.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(228, 241, 254));
         jLabel21.setText("Brief Description:");
 
         jTextField_NganGonManage.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -1325,17 +1368,21 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         });
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(228, 241, 254));
         jLabel24.setText("Detailed Description:");
 
         jTextPane_ChitietManage.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jScrollPane6.setViewportView(jTextPane_ChitietManage);
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(228, 241, 254));
         jLabel27.setText("Image Path:");
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(228, 241, 254));
         jLabel28.setText("Time:");
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Change");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1343,13 +1390,16 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             }
         });
 
+        jButton_ThemHoinghi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_ThemHoinghi.setText("Add");
+        jButton_ThemHoinghi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton_ThemHoinghi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ThemHoinghiActionPerformed(evt);
             }
         });
 
+        jButton_DuyetMemberAttendConfer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton_DuyetMemberAttendConfer.setText("Save");
         jButton_DuyetMemberAttendConfer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1360,6 +1410,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jComboBox_Chondiadiem.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 17)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(228, 241, 254));
         jLabel29.setText("Number:");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1399,11 +1450,11 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
-                .addComponent(jButton_ThemHoinghi, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_ThemHoinghi, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_DuyetMemberAttendConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_DuyetMemberAttendConfer, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(197, 197, 197))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1465,17 +1516,94 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_UserManager.setMaximumSize(new java.awt.Dimension(922, 488));
         jPanel_UserManager.setMinimumSize(new java.awt.Dimension(922, 488));
 
-        jPanel5.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel5.setBackground(new java.awt.Color(44, 62, 60));
+        jPanel5.setForeground(new java.awt.Color(255, 255, 255));
+
+        jTable_UserManage.setBackground(new java.awt.Color(108, 122, 137));
+        jTable_UserManage.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTable_UserManage.setForeground(new java.awt.Color(228, 241, 254));
+        jTable_UserManage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Username", "Email", "Active"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_UserManage.setGridColor(new java.awt.Color(102, 102, 255));
+        jScrollPane7.setViewportView(jTable_UserManage);
+        if (jTable_UserManage.getColumnModel().getColumnCount() > 0) {
+            jTable_UserManage.getColumnModel().getColumn(0).setResizable(false);
+            jTable_UserManage.getColumnModel().getColumn(1).setResizable(false);
+            jTable_UserManage.getColumnModel().getColumn(2).setResizable(false);
+            jTable_UserManage.getColumnModel().getColumn(3).setResizable(false);
+            jTable_UserManage.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        jButton_NganChanMember.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton_NganChanMember.setText("SAVE");
+        jButton_NganChanMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_NganChanMemberActionPerformed(evt);
+            }
+        });
+
+        jComboBox_SortMember.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort by...", "ID", "Name" }));
+        jComboBox_SortMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_SortMemberActionPerformed(evt);
+            }
+        });
+
+        jComboBox_Filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filter...", "Name", "Active", "Inactive" }));
+        jComboBox_Filter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_FilterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 922, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jComboBox_Filter, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox_SortMember, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(420, Short.MAX_VALUE)
+                .addComponent(jButton_NganChanMember, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(402, 402, 402))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox_SortMember, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(jComboBox_Filter, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_NganChanMember, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel_UserManagerLayout = new javax.swing.GroupLayout(jPanel_UserManager);
@@ -2434,7 +2562,13 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
        Hoinghi hoinghi=HoiNghiDAO.findInforHoinghi(getKeyConference());
      //   if(getCountMember()<hoinghi.getSoNguoiThamDu()) {
-            
+        int demMember=0;
+        Iterator<MemberList> iterator=hoinghi.getMemberLists().iterator();
+        while(iterator.hasNext())
+        {
+            iterator.next();
+            demMember++;
+        }
         if(getKeyMember()==-1)
         {
             JOptionPane.showMessageDialog(null, "Vui lòng đăng nhập để sử dụng chức năng này");
@@ -2452,7 +2586,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             mbl.setConfirm(0);
             if(MemberListsDAO.findMemberList(mbl)==true)
             {
-                 if(getCountMember()<hoinghi.getSoNguoiThamDu())
+                 if(demMember<hoinghi.getSoNguoiThamDu())
                  {
                     MemberListsDAO.addMemberList(mbl);
                     showListConferenceStatistics();
@@ -2727,6 +2861,135 @@ public final class Dashboard_Form extends javax.swing.JFrame {
        }else JOptionPane.showMessageDialog(null, "Vui lòng chọn hội nghị cần sửa");
     }//GEN-LAST:event_jButton_DuyetMemberAttendConferActionPerformed
 
+    private void jButton_NganChanMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NganChanMemberActionPerformed
+        // TODO add your handling code here:
+       int index=jTable_UserManage.getSelectedRow();
+       if(index>-1)
+       {
+        boolean kq = false;   
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_UserManage.getModel();
+        for(int i=0;i<defaultTableModel.getRowCount();i++){
+                    int a=Integer.parseInt(defaultTableModel.getValueAt(i, 0).toString());
+                    Member mb=MemberDao.findInforMember(a);
+                     System.out.println("mb"+a);
+                    String active=(defaultTableModel.getValueAt(i, 4).toString());
+                   System.out.println("ac"+active);
+                    String b="active";
+                    String c="inactive";
+                    if( active.equals(b))
+                    {           
+                                mb.setActive(1);
+                                
+                    }
+                    else if(active.equals(c))
+                    {
+                                mb.setActive(0);
+                              
+                    }
+                    boolean temp=MemberDao.updateMember(mb);
+                    
+                    if(temp) {
+                        kq=temp;
+                    }
+                    else break;
+                }       
+                if(kq) 
+                     {
+                        JOptionPane.showMessageDialog(null, "Update Success");
+                        showListConferenceStatistics();
+                    }
+                    else JOptionPane.showMessageDialog(null, "Update Failed");
+       }else JOptionPane.showMessageDialog(null, "Vui lòng chọn member cần sửa");
+    }//GEN-LAST:event_jButton_NganChanMemberActionPerformed
+
+    private void jComboBox_SortMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_SortMemberActionPerformed
+        // TODO add your handling code here:
+       int index=jComboBox_SortMember.getSelectedIndex();
+       if(index>0)
+       {
+           List<Member> members=new ArrayList<>();
+           if(index==1)
+           {
+               members=MemberBus.sortIdMembers();
+           }else if(index==2)
+           {
+               members=MemberBus.sortNameMembers();
+           }
+       
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_UserManage.getModel();
+        defaultTableModel.setRowCount(0);
+        for(int i=0;i<members.size();i++)
+        {
+            Member temp=members.get(i);
+            if(temp.getVaiTro()==0)
+            {
+            List<String> list=new ArrayList<>();
+            list.add(String.valueOf(temp.getIdMember()));
+            list.add(temp.getTen());
+            list.add(temp.getUserName());
+            list.add(temp.getEmail());
+            if(temp.getActive()==1)
+            {
+                list.add("active");
+            }
+            else if(temp.getActive()==0)
+            {
+                list.add("inactive");
+            }
+            defaultTableModel.addRow(list.toArray());
+            }
+        }
+       }
+    }//GEN-LAST:event_jComboBox_SortMemberActionPerformed
+
+    private void jComboBox_FilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_FilterActionPerformed
+        // TODO add your handling code here:
+        int index=jComboBox_Filter.getSelectedIndex();
+        if(index>0)
+        {
+            
+        List<Member> members=new ArrayList<>();
+            switch (index) {
+                case 1:
+                    String name=jTextField1.getText();
+                    members=MemberBus.filterNameMembers(name);
+                    break;
+                case 2:
+                    members=MemberBus.filterActiveMembers();
+                    break;
+                case 3:
+                    members=MemberBus.filterInactiveMembers();
+                    break;
+                default:
+                    break;
+            }
+       
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_UserManage.getModel();
+        defaultTableModel.setRowCount(0);
+        for(int i=0;i<members.size();i++)
+        {
+            Member temp=members.get(i);
+            if(temp.getVaiTro()==0)
+            {
+            List<String> list=new ArrayList<>();
+            list.add(String.valueOf(temp.getIdMember()));
+            list.add(temp.getTen());
+            list.add(temp.getUserName());
+            list.add(temp.getEmail());
+            if(temp.getActive()==1)
+            {
+                list.add("active");
+            }
+            else if(temp.getActive()==0)
+            {
+                list.add("inactive");
+            }
+            defaultTableModel.addRow(list.toArray());
+            }
+        }
+       }
+    }//GEN-LAST:event_jComboBox_FilterActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2776,13 +3039,16 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_ChangePass;
     private javax.swing.JButton jButton_DuyetMemberAttendConfer;
+    private javax.swing.JButton jButton_NganChanMember;
     private javax.swing.JButton jButton_Signin;
     private javax.swing.JButton jButton_Signin1;
     private javax.swing.JButton jButton_Signup;
     private javax.swing.JButton jButton_ThemHoinghi;
     private javax.swing.JButton jButton_signupConfer;
     private javax.swing.JComboBox<String> jComboBox_Chondiadiem;
+    private javax.swing.JComboBox<String> jComboBox_Filter;
     private javax.swing.JComboBox<String> jComboBox_Sort;
+    private javax.swing.JComboBox<String> jComboBox_SortMember;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2806,6 +3072,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2873,13 +3140,16 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane_Card;
     private javax.swing.JScrollPane jScrollPane_List;
     private javax.swing.JTable jTable_ConferenceStatistics;
     private javax.swing.JTable jTable_ListConManager;
     private javax.swing.JTable jTable_MemberAttendConfer;
     private javax.swing.JTable jTable_MemberAttendManage;
+    private javax.swing.JTable jTable_UserManage;
     private javax.swing.JTextField jTextCountNumberDetail;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField_EmailProfile;
     private javax.swing.JTextField jTextField_EmailSignup;
     private javax.swing.JTextField jTextField_NameManage;
