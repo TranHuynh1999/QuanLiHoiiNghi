@@ -384,7 +384,16 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             tbStatistics.addRow(list.toArray());
         }
     }
-
+    public void resetConferManage(){
+        jTextField_NameManage.setText(null);
+        jTextField_NganGonManage.setText(null);
+        jTextPane_ChitietManage.setText(null);
+        jTextField_PathImage.setText(null);
+        jTextField_TimeManage.setText(null);
+        jTextField_number.setText(null);
+        DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_MemberAttendManage.getModel();
+        defaultTableModel.setRowCount(0);
+    }
     
     // create a function to set the label background color
     public void setLabelBackround(JLabel label)
@@ -442,17 +451,20 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                    
                             case "Home":
                                    showPanel(jPanel_Home);
+                                   resetConferManage();
                                    // jPanel_users.setBackground(Color.red);
                                    break;
                              case "List Conference":
                                    showPanel(jPanel_ListConference);
                                    setBack(1);
+                                   resetConferManage();
                                    jButton_signupConfer.setVisible(true);
                                    break;
                                    
                             case "Conference statistics":
                                    showPanel(jPanel_Statistics);
                                    setBack(2);
+                                   resetConferManage();
                                    showListConferenceStatistics();
                                    jButton_signupConfer.setVisible(true);
                                    // jPanel_products.setBackground(Color.BLUE);
@@ -468,15 +480,18 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                    case "User Manager":
                                    showPanel(jPanel_UserManager);
                                    showMemberManage();
+                                   resetConferManage();
                                    // jPanel_contact.setBackground(Color.GREEN);
                                    break;
                                    
                                    case "Profile":
                                    showPanel(jPanel_Profile);
+                                   resetConferManage();
                                    // jPanel_calendar.setBackground(Color.yellow);
                                    break;
                                    
                                    case "Sign In":
+                                   resetConferManage();
                                    showPanel(jPanel_SignIn);
                                    // jPanel_test.setBackground(Color.orange);
                                    break;
@@ -589,10 +604,11 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel_close = new javax.swing.JLabel();
         jPanel_Home = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTextPane1 = new javax.swing.JTextPane();
         jPanel_DetailConference = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel_DetailMotangangon = new javax.swing.JLabel();
@@ -716,9 +732,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jLabel_appLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/appLogo.png"))); // NOI18N
         jLabel_appLogo.setOpaque(true);
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 30)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel8.setText("Conference");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("CMA");
 
         javax.swing.GroupLayout jPanel_logoANDnameLayout = new javax.swing.GroupLayout(jPanel_logoANDname);
         jPanel_logoANDname.setLayout(jPanel_logoANDnameLayout);
@@ -728,8 +745,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel_appLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_logoANDnameLayout.setVerticalGroup(
             jPanel_logoANDnameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -863,10 +880,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         jPanel_Home.setMinimumSize(new java.awt.Dimension(922, 488));
         jPanel_Home.setPreferredSize(new java.awt.Dimension(922, 488));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("General Introduction");
-
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\Documents\\NetBeansProjects\\QuanLiHoiiNghi\\target\\classes\\IMAGES\\conference.jpg")); // NOI18N
         jLabel2.setText("jLabel2");
@@ -894,24 +907,36 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 .addGap(0, 2, Short.MAX_VALUE))
         );
 
+        jTextPane1.setEditable(false);
+        jTextPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextPane1.setText("Welcome to the CMA application. CMA will help you track and register the conferences that interest you.");
+        jScrollPane8.setViewportView(jTextPane1);
+
         javax.swing.GroupLayout jPanel_HomeLayout = new javax.swing.GroupLayout(jPanel_Home);
         jPanel_Home.setLayout(jPanel_HomeLayout);
         jPanel_HomeLayout.setHorizontalGroup(
             jPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel_HomeLayout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel_HomeLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel_HomeLayout.setVerticalGroup(
             jPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_HomeLayout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
                 .addGroup(jPanel_HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel_HomeLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_HomeLayout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         jPanel_DetailConference.setMaximumSize(new java.awt.Dimension(922, 488));
@@ -1214,7 +1239,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             }
         });
         jTable_ConferenceStatistics.setGridColor(new java.awt.Color(255, 51, 51));
-        jTable_ConferenceStatistics.setSelectionBackground(new java.awt.Color(102, 102, 255));
         jTable_ConferenceStatistics.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable_ConferenceStatisticsMouseClicked(evt);
@@ -1531,7 +1555,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -2175,7 +2199,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             jPanel_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_containerLayout.createSequentialGroup()
                 .addComponent(jPanel_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel_containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel_Home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2802,7 +2826,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         String thoigian=jTextField_TimeManage.getText();
         Date date = null;
         try {
-            date = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss").parse(thoigian);
+            date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(thoigian);
         } catch (ParseException ex) {
             Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -2823,9 +2847,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private void jButton_DuyetMemberAttendConferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DuyetMemberAttendConferActionPerformed
         // TODO add your handling code here:
        int index=jTable_ListConManager.getSelectedRow();
+        List<Integer> fail=new ArrayList<>();
        if(index>-1)
        {
-        boolean kq = false;   
+//        boolean kq = false;   
         DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_MemberAttendManage.getModel();
         for(int i=0;i<defaultTableModel.getRowCount();i++){
                     int a=Integer.parseInt(defaultTableModel.getValueAt(i, 0).toString());
@@ -2840,66 +2865,82 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                                 mbl.setConfirm(0);
                                 
                     }
-                    else 
+                    else if(confirm.equals(c))
                     {
                                 mbl.setConfirm(1);
                               
+                    }else
+                    {
+                        fail.add(mbl.getMember().getIdMember());
                     }
                     boolean temp=MemberListsDAO.updateMemberlist(mbl);
-                    
-                    if(temp) {
-                        kq=temp;
-                    }
-                    else break;
-                }      
-                if(kq) 
-                     {
-                        JOptionPane.showMessageDialog(null, "Update Success");
-                        showListConferenceStatistics();
-                    }
-                    else JOptionPane.showMessageDialog(null, "Update Failed");
+        }
+                JOptionPane.showMessageDialog(null, "Update success");
+                if(fail.isEmpty()==false)
+                {
+                JOptionPane.showMessageDialog(null, "But fail idmember:"+fail);
+                }
+                showMemberAttendConferManagement(getKeyConference());
+                      
+//                if(kq) 
+//                     {
+//                        JOptionPane.showMessageDialog(null, "Update Success");
+//                        showListConferenceStatistics();
+//                    }
+//                    else JOptionPane.showMessageDialog(null, "Update Failed");
        }else JOptionPane.showMessageDialog(null, "Vui lòng chọn hội nghị cần sửa");
+        
     }//GEN-LAST:event_jButton_DuyetMemberAttendConferActionPerformed
 
     private void jButton_NganChanMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NganChanMemberActionPerformed
         // TODO add your handling code here:
        int index=jTable_UserManage.getSelectedRow();
+       List<Integer> fail=new ArrayList<>();
        if(index>-1)
        {
-        boolean kq = false;   
+        
         DefaultTableModel defaultTableModel=(DefaultTableModel) jTable_UserManage.getModel();
         for(int i=0;i<defaultTableModel.getRowCount();i++){
                     int a=Integer.parseInt(defaultTableModel.getValueAt(i, 0).toString());
                     Member mb=MemberDao.findInforMember(a);
-                     System.out.println("mb"+a);
                     String active=(defaultTableModel.getValueAt(i, 4).toString());
-                   System.out.println("ac"+active);
                     String b="active";
                     String c="inactive";
+                    
                     if( active.equals(b))
                     {           
                                 mb.setActive(1);
-                                
+                          
                     }
                     else if(active.equals(c))
                     {
                                 mb.setActive(0);
                               
+                              
+                    }else
+                    {
+                        fail.add(mb.getIdMember());
+                        
                     }
                     boolean temp=MemberDao.updateMember(mb);
                     
-                    if(temp) {
-                        kq=temp;
-                    }
-                    else break;
-                }       
-                if(kq) 
-                     {
-                        JOptionPane.showMessageDialog(null, "Update Success");
-                        showListConferenceStatistics();
-                    }
-                    else JOptionPane.showMessageDialog(null, "Update Failed");
+                    
+                }
+               
+                JOptionPane.showMessageDialog(null, "Update success");
+                if(fail.isEmpty()==false)
+                {
+                JOptionPane.showMessageDialog(null, "but fail idmember"+fail);
+                }
+                showMemberManage();
+//                if(kq) 
+//                     {
+//                        JOptionPane.showMessageDialog(null, "Update Success");
+//                        showListConferenceStatistics();
+//                    }
+//                    else JOptionPane.showMessageDialog(null, "Update Failed");
        }else JOptionPane.showMessageDialog(null, "Vui lòng chọn member cần sửa");
+      
     }//GEN-LAST:event_jButton_NganChanMemberActionPerformed
 
     private void jComboBox_SortMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_SortMemberActionPerformed
@@ -3073,7 +3114,6 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -3141,6 +3181,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane_Card;
     private javax.swing.JScrollPane jScrollPane_List;
     private javax.swing.JTable jTable_ConferenceStatistics;
@@ -3162,6 +3203,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_TimeManage;
     private javax.swing.JTextField jTextField_UsernameSignup;
     private javax.swing.JTextField jTextField_number;
+    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane_ChitietManage;
     private javax.swing.JTextPane jTextPane_DetailMotachitiet;
     // End of variables declaration//GEN-END:variables
