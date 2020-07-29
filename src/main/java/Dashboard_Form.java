@@ -191,8 +191,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                    jLabel_DetailImage.setIcon(imageIcon);
                    MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
                    if(temp==null)
-                        jButton_signupConfer.setText("Đăng ký");
-                   else jButton_signupConfer.setText("Hủy đăng ký");
+                        jButton_signupConfer.setText("Register");
+                   else jButton_signupConfer.setText("Cancel Register");
                    showMemberAttendConference(hn.getIdHoiNghi());
                    showPanel(jPanel_DetailConference);
                }
@@ -230,8 +230,8 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                    jLabel_DetailImage.setIcon(imageIcon);
                    MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
                    if(temp==null)
-                        jButton_signupConfer.setText("Đăng ký");
-                   else jButton_signupConfer.setText("Hủy đăng ký");
+                        jButton_signupConfer.setText("Register");
+                   else jButton_signupConfer.setText("Cancel Register");
                    showMemberAttendConference(hn.getIdHoiNghi());
                    showPanel(jPanel_DetailConference);
                    
@@ -759,56 +759,56 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         );
 
         jLabel_menuItemHome.setBackground(new java.awt.Color(46, 49, 49));
-        jLabel_menuItemHome.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemHome.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemHome.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemHome.setText("Home");
         jLabel_menuItemHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_menuItemHome.setOpaque(true);
 
         jLabel_menuItemListConferece.setBackground(new java.awt.Color(46, 49, 49));
-        jLabel_menuItemListConferece.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemListConferece.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemListConferece.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemListConferece.setText("List Conference");
         jLabel_menuItemListConferece.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_menuItemListConferece.setOpaque(true);
 
         jLabel_menuItemStatistics.setBackground(new java.awt.Color(46, 49, 49));
-        jLabel_menuItemStatistics.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemStatistics.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemStatistics.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemStatistics.setText("Conference statistics ");
         jLabel_menuItemStatistics.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_menuItemStatistics.setOpaque(true);
 
         jLabel_menuItemConfereceMa.setBackground(new java.awt.Color(46, 49, 49));
-        jLabel_menuItemConfereceMa.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemConfereceMa.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemConfereceMa.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemConfereceMa.setText("Conference Manager ");
         jLabel_menuItemConfereceMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_menuItemConfereceMa.setOpaque(true);
 
         jLabel_menuItemUserMa.setBackground(new java.awt.Color(46, 49, 49));
-        jLabel_menuItemUserMa.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemUserMa.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemUserMa.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemUserMa.setText("User Manager");
         jLabel_menuItemUserMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_menuItemUserMa.setOpaque(true);
 
         jLabel_menuItemProfile.setBackground(new java.awt.Color(46, 49, 49));
-        jLabel_menuItemProfile.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemProfile.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemProfile.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemProfile.setText("Profile");
         jLabel_menuItemProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_menuItemProfile.setOpaque(true);
 
         jLabel_menuItemSignIn.setBackground(new java.awt.Color(46, 49, 49));
-        jLabel_menuItemSignIn.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemSignIn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemSignIn.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemSignIn.setText("Sign In");
         jLabel_menuItemSignIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel_menuItemSignIn.setOpaque(true);
 
         jLabel_menuItemSignout.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel_menuItemSignout.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel_menuItemSignout.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel_menuItemSignout.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_menuItemSignout.setText("Sign Out");
         jLabel_menuItemSignout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -836,9 +836,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 .addComponent(jLabel_menuItemHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_menuItemListConferece, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_menuItemStatistics, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_menuItemConfereceMa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_menuItemUserMa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -846,7 +846,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                 .addComponent(jLabel_menuItemProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_menuItemSignIn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel_menuItemSignout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -2439,10 +2439,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 //            String password=String.valueOf(jPasswordField_ConNewPass.getPassword());
 //            mb.setPassword(hashPassword(password));
             mb.setEmail(jTextField_EmailProfile.getText());
-             jLabel_ProfileName.setText("Hello "+mb.getTen()+"!");
+             jLabel_ProfileName.setText("Hi "+mb.getTen()+"!");
             boolean kq=MemberDao.updateProfile(mb);
-            if(kq) JOptionPane.showMessageDialog(null, "Update Success!");
-            else  JOptionPane.showMessageDialog(null, "Update Fail!");
+            if(kq) JOptionPane.showMessageDialog(null, "Update  Account Success!");
+            else  JOptionPane.showMessageDialog(null, "Update Account Fail!");
        
     }//GEN-LAST:event_jButton_Signin1ActionPerformed
     
@@ -2555,7 +2555,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                         jPasswordField_NewPass.setText(null);
                         jPasswordField_ConNewPass.setText(null);
                     }
-                    else JOptionPane.showMessageDialog(null, "Change Password Failed");
+                    else JOptionPane.showMessageDialog(null, "Change Password Failed!");
                 }else JOptionPane.showMessageDialog(null, "Confirm Password should be equal to Password!");
             }else JOptionPane.showMessageDialog(null, "Current Password Not Accepted!");
                 } catch (NoSuchAlgorithmException ex) {
@@ -2595,7 +2595,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         }
         if(getKeyMember()==-1)
         {
-            JOptionPane.showMessageDialog(null, "Vui lòng đăng nhập để sử dụng chức năng này");
+            JOptionPane.showMessageDialog(null, "Please sign in to use this function!");
             setLabelBackround(jLabel_menuItemSignIn);
             showPanel(jPanel_SignIn);
         }else
@@ -2614,9 +2614,9 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                  {
                     MemberListsDAO.addMemberList(mbl);
                     showListConferenceStatistics();
-                    JOptionPane.showMessageDialog(null, "Đăng ký hội nghị thành công");
-                    jButton_signupConfer.setText("Hủy đăng ký");
-                 }else JOptionPane.showMessageDialog(null, "Hoi nghi đã đủ người");
+                    JOptionPane.showMessageDialog(null, "Sign up for the conference successfully!");
+                    jButton_signupConfer.setText("Cancel Register");
+                 }else JOptionPane.showMessageDialog(null, "The conference is full of people");
             }else if(MemberListsDAO.findMemberList(mbl)==false)
             {
 //                MemberList temp=MemberListsDAO.findMemberListtoID(getKeyMember(),getKeyConference());
@@ -2635,10 +2635,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                      { boolean kq=MemberListsDAO.xoaMemberList(mbl);
                         if(kq)
                         {
-                               JOptionPane.showMessageDialog(null, "Hủy đăng ký thành công");
-                               jButton_signupConfer.setText("Đăng ký");
+                               JOptionPane.showMessageDialog(null, "Cancel register successfully!");
+                               jButton_signupConfer.setText("Register");
                         }
-                    }   else JOptionPane.showMessageDialog(null, "Hoi nghi đã diễn ra k thể hủy");
+                    }   else JOptionPane.showMessageDialog(null, "The conference that took place cannot be cancel register.");
                   
                   showMemberAttendConference(hn.getIdHoiNghi());
             }
@@ -2669,7 +2669,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 //         if(temp==null)
 //             jButton_signupConfer.setText("Đăng ký");
 //         else 
-          jButton_signupConfer.setText("Hủy đăng ký");
+          jButton_signupConfer.setText("Cancel Register");
          showMemberAttendConference(hn.getIdHoiNghi());
          
          showPanel(jPanel_DetailConference);
@@ -2786,21 +2786,24 @@ public final class Dashboard_Form extends javax.swing.JFrame {
         String thoigian=jTextField_TimeManage.getText();
         Date date = null;
         try {
-            date = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss").parse(thoigian);
+            date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(thoigian);
         } catch (ParseException ex) {
             Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
         }
         hn.setThoiGian(date);
+        if(HoiNghiBus.tochucHoinghi(hn))
+        {
         boolean kq=HoiNghiDAO.themHoiNghi(hn);
         if(kq)
         {
-            JOptionPane.showMessageDialog(null, "Them Hoi nghi thanh cong");
+            JOptionPane.showMessageDialog(null, "Add conference successfully!");
             showListConferenceManager();
             showListConference();
             showCardConference();
             
         }
         else    System.out.println("Fail");
+        }else JOptionPane.showMessageDialog(null, "The conference you want to add has the same time and place.");
         
     }//GEN-LAST:event_jButton_ThemHoinghiActionPerformed
 
@@ -2831,17 +2834,20 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
         }
         hn.setThoiGian(date);
+        if(HoiNghiBus.tochucHoinghi(hn))
+        {
         boolean kq=HoiNghiDAO.updateConference(hn);
         if(kq)
         {
-            JOptionPane.showMessageDialog(null, "Sửa đổi hội nghị thành công");
+            JOptionPane.showMessageDialog(null, "Update conference successfully!");
             showListConferenceManager();
             showListConference();
             showCardConference();
         
         }
         else    System.out.println("false");
-       }else JOptionPane.showMessageDialog(null, "Vui lòng chọn hội nghị cần sửa");
+        }else JOptionPane.showMessageDialog(null, "The conference you want to update has the same time and place.");
+       }else JOptionPane.showMessageDialog(null, "Please select the conference to update!");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton_DuyetMemberAttendConferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_DuyetMemberAttendConferActionPerformed
@@ -2875,10 +2881,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                     }
                     boolean temp=MemberListsDAO.updateMemberlist(mbl);
         }
-                JOptionPane.showMessageDialog(null, "Update success");
+                JOptionPane.showMessageDialog(null, "Approve the conference registrant successfully!");
                 if(fail.isEmpty()==false)
                 {
-                JOptionPane.showMessageDialog(null, "But fail idmember:"+fail);
+                JOptionPane.showMessageDialog(null, "But failed in idmember: "+fail);
                 }
                 showMemberAttendConferManagement(getKeyConference());
                       
@@ -2888,7 +2894,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 //                        showListConferenceStatistics();
 //                    }
 //                    else JOptionPane.showMessageDialog(null, "Update Failed");
-       }else JOptionPane.showMessageDialog(null, "Vui lòng chọn hội nghị cần sửa");
+       }else JOptionPane.showMessageDialog(null, "Please select the member to approve!");
         
     }//GEN-LAST:event_jButton_DuyetMemberAttendConferActionPerformed
 
@@ -2927,10 +2933,10 @@ public final class Dashboard_Form extends javax.swing.JFrame {
                     
                 }
                
-                JOptionPane.showMessageDialog(null, "Update success");
+                JOptionPane.showMessageDialog(null, "Update member successfully!");
                 if(fail.isEmpty()==false)
                 {
-                JOptionPane.showMessageDialog(null, "but fail idmember"+fail);
+                JOptionPane.showMessageDialog(null, "But failed idmember: "+fail);
                 }
                 showMemberManage();
 //                if(kq) 
@@ -2939,7 +2945,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
 //                        showListConferenceStatistics();
 //                    }
 //                    else JOptionPane.showMessageDialog(null, "Update Failed");
-       }else JOptionPane.showMessageDialog(null, "Vui lòng chọn member cần sửa");
+       }else JOptionPane.showMessageDialog(null, "Please select the member to update!");
       
     }//GEN-LAST:event_jButton_NganChanMemberActionPerformed
 
@@ -3065,7 +3071,7 @@ public final class Dashboard_Form extends javax.swing.JFrame {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InstantiationException ex) {
                 Logger.getLogger(Dashboard_Form.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IllegalAccessException ex) {

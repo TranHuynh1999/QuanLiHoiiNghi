@@ -5,6 +5,7 @@
  */
 package BUS;
 
+import DAO.HoiNghiDAO;
 import DAO.MemberDao;
 import POJOs.Diadiemtochuc;
 import POJOs.Hoinghi;
@@ -106,5 +107,22 @@ public class HoiNghiBus {
                             }
                             kq=kqtemp;
                             return kq;
+    }
+    public static boolean tochucHoinghi(Hoinghi hn)
+    {
+        List <Hoinghi> hoinghis=HoiNghiDAO.findAll();
+        for(int i=0;i<hoinghis.size();i++){
+            Hoinghi temp=hoinghis.get(i);
+            if(hn.getIdHoiNghi()!=temp.getIdHoiNghi())
+            {
+                if(hn.getThoiGian().equals(temp.getThoiGian())&&hn.getDiadiemtochuc().getIdDiaDiemToChuc()==temp.getDiadiemtochuc().getIdDiaDiemToChuc())
+                        {
+                            return false;
+                        }
+ 
+            }
+            
+        }
+        return true;
     }
 }
